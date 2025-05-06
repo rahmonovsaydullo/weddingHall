@@ -1,0 +1,22 @@
+# dependencies
+node_modules/
+
+# environment variables
+.env
+
+# logs
+logs
+*.log
+
+# OS / IDE junk
+.DS_Store
+Thumbs.db
+
+# runtime data
+pids
+*.pid
+*.seed
+
+# compiled files
+dist/
+build/
