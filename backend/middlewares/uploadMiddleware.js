@@ -25,6 +25,6 @@ const upload = multer({
     fileFilter
 })
 
-const uploadMiddleware = upload.array('photos, 6')
+const uploadMiddleware = upload.array('photos', 6)
 
 module.exports = uploadMiddleware
