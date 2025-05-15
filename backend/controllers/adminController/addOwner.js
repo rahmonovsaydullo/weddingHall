@@ -2,27 +2,29 @@ const bcrypt = require('bcrypt')
 const pool = require("../../config/db");
 
 const createOwner = async (req, res) => {
-  const { name, email, password, phone } = req.body;
+  const { first_name, last_name, user_name, password } = req.body;
 
-  if (!name || !email || !password || !phone) {
+  if (!user_name || !last_name || !first_name || !password) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
   try {
-    // Check if user already exists
-    const existing = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    const existing = await pool.query('SELECT * FROM "user" WHERE "user_name" = $1', [user_name]);
     if (existing.rows.length > 0) {
-      return res.status(400).json({ error: "User with this email already exists" });
+      return res.status(400).json({ error: "User already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+
+
     const query = `
-      INSERT INTO users (name, email, password, phone, role)
+      INSERT INTO "user" ("first_name", "last_name", "user_name", "password", "role")
       VALUES ($1, $2, $3, $4, 'owner')
-      RETURNING id, name, email, phone, role
+      RETURNING *
     `;
-    const values = [name, email, hashedPassword, phone];
+
+    const values = [first_name, last_name, user_name, hashedPassword];
 
     const result = await pool.query(query, values);
     res.status(201).json({
@@ -31,7 +33,7 @@ const createOwner = async (req, res) => {
     });
   } catch (error) {
     console.error("Error creating owner:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error });
   }
 };
 

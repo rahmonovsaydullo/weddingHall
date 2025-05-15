@@ -4,8 +4,8 @@ require('dotenv').config();
 const getAllOwners  = async (req, res) => {  
   try {
     const query = `
-      SELECT id, firstname, lastname, username, role
-      FROM users
+      SELECT id, first_name, last_name, user_name, role
+      FROM "user"
       WHERE role = 'owner';
     `;
     const result = await pool.query(query);

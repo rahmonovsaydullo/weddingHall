@@ -5,18 +5,18 @@ require('dotenv').config();
 
 
 const createVenues = async (req, res) => {
-    const { name, address, seat_price, phone_number, status, user_id, district } = req.body;
+    const { name, address, seat_price, phone_number, owner_id, district } = req.body;
 
-    if (!name || !address || !seat_price || !phone_number || !status || !user_id || !district) {
-        return res.status(400).json({ error: "Missing required fields, error with creating venue" });
-    }
+    // if (!name || !address || !seat_price || !phone_number  || !user_id || !district) {
+    //     return res.status(400).json({ error: "Missing required fields, error with creating venue" });
+    // }
 
     try {
         const query = `
-    INSERT INTO venues (name, address, seat_price, phone_number, status, user_id, district)
-    VALUES ($1, $2, $3, $4, $5, $6, $7)`
+         INSERT INTO venues (name, address, seat_price, phone_number,  owner_id, district, status)
+         VALUES ($1, $2, $3, $4, $5, $6, 'approved')`
 
-        const values = [name, address, seat_price, phone_number, status, user_id, district];
+        const values = [name, address, seat_price, phone_number, owner_id, district];
         const result = await pool.query(query, values);
 
         res.status(201).json({
@@ -24,6 +24,7 @@ const createVenues = async (req, res) => {
             wedding_hall: result.rows[0],
         });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: "Internal server error. On creating venue" })
     }
 }

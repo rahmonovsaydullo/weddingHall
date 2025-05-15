@@ -20,18 +20,13 @@ const login = async (req, res) => {
 
     const user = result.rows[0];
 
-    // Log debug info
-    console.log("User lookup result:", user);
-    console.log("Password from request:", `[${password}]`);
-    console.log("Hashed password from DB:", `[${user.password}]`);
-
     // Clean inputs
     const cleanPassword = password.trim();
     const cleanHash = user.password.trim();
 
     // Compare passwords
     const passwordMatch = await bcrypt.compare(cleanPassword, cleanHash);
-    console.log("Password match result:", passwordMatch);
+
 
     if (!passwordMatch) {
       return res.status(401).json({ message: "Invalid username or password" });
@@ -58,7 +53,7 @@ const login = async (req, res) => {
     });
   } catch (err) {
     console.error("Login error:", err);
-    res.status(500).send("Server error occurred");
+    res.status(500).send("Internal server error");
   }
 };
 
