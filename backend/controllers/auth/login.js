@@ -5,27 +5,33 @@ require("dotenv").config();
 
 const login = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { user_name, password } = req.body;
 
     // Query user by username
     const result = await pool.query(
-      `SELECT * FROM "user" WHERE user_name = $1`,
-      [username]
+      'SELECT * FROM "user" WHERE user_name = $1',
+      [user_name]
     );
 
-    // If no user found, return error before accessing user data
     if (result.rows.length === 0) {
+      console.log("No user found for username:", user_name);
       return res.status(404).json({ message: "Invalid username or password" });
     }
 
     const user = result.rows[0];
 
+    // Log debug info
     console.log("User lookup result:", user);
-    console.log("Password from request:", password);
-    console.log("Hashed password from DB:", user.password);
+    console.log("Password from request:", `[${password}]`);
+    console.log("Hashed password from DB:", `[${user.password}]`);
+
+    // Clean inputs
+    const cleanPassword = password.trim();
+    const cleanHash = user.password.trim();
 
     // Compare passwords
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    const passwordMatch = await bcrypt.compare(cleanPassword, cleanHash);
+    console.log("Password match result:", passwordMatch);
 
     if (!passwordMatch) {
       return res.status(401).json({ message: "Invalid username or password" });
@@ -38,7 +44,7 @@ const login = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    // Return success response
+    // Send response
     res.status(200).json({
       message: "Login successful",
       token,
