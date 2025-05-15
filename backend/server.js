@@ -10,6 +10,8 @@ app.use(express.json());
 app.use("/admin", require("./routes/adminRoutes"));
 app.use("/owner", require("./routes/ownerRoutes"));
 app.use("/user", require("./routes/userRoutes"));
+app.use("/auth", require("./routes/authRoutes"));
+
 
 // Start server
 const PORT = process.env.PORT || 5000;
