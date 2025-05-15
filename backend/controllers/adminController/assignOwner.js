@@ -3,7 +3,7 @@ require("dotenv").config();
 const pool = require('../../config/db')
 
 // Assign owner to a venue
-exports.assignOwner = async (req, res) => {
+const assignOwner = async (req, res) => {
   const venueId = req.params.id;
   const { user_id } = req.body;
 
@@ -37,3 +37,5 @@ exports.assignOwner = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+module.exports = assignOwner

@@ -1,6 +1,6 @@
 const pool = require("../../config/db");
 
-exports.createVenueByOwner = async (req, res) => {
+const createVenueByOwner = async (req, res) => {
   const { name, address, seat_price, phone_number, user_id, district } = req.body;
 
   // Check for required fields
@@ -27,3 +27,6 @@ exports.createVenueByOwner = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
+module.exports  = createVenueByOwner

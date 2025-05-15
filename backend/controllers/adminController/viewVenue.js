@@ -1,6 +1,6 @@
 const pool = require("../../config/db");
 
-exports.viewVenue = async (req, res) => {
+const viewVenue = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -19,3 +19,5 @@ exports.viewVenue = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+module.exports = viewVenue

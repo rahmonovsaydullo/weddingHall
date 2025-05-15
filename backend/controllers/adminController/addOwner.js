@@ -1,7 +1,7 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt')
 const pool = require("../../config/db");
 
-exports.createOwner = async (req, res) => {
+const createOwner = async (req, res) => {
   const { name, email, password, phone } = req.body;
 
   if (!name || !email || !password || !phone) {
@@ -34,3 +34,6 @@ exports.createOwner = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+
+module.exports = createOwner
