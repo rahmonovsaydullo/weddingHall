@@ -1,6 +1,6 @@
 const pool = require('../../config/db');
 
-const deleteWeddinghallFromWeddingHall = async (req, res) => {
+const deleteVenue = async (req, res) => {
     const wedding_hall_id = req.wedding_hall_id
     const { owner_id } = req.body
 
@@ -15,4 +15,4 @@ const deleteWeddinghallFromWeddingHall = async (req, res) => {
     }
 }
 
-module.exports = deleteWeddinghallFromWeddingHall
+module.exports = deleteVenue

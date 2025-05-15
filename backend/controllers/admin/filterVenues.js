@@ -8,7 +8,7 @@ app.use(express.json());
 
 
 
-exports.filterWeddinghall = async (req, res) => {
+const filterVenue = async (req, res) => {
     const { sortBy } = req.query;
 
     try {
@@ -33,3 +33,6 @@ exports.filterWeddinghall = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
+
+
+module.exports = filterVenue
