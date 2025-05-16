@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-// Import each controller
+const uploadMiddleware = require("../middlewares/uploadMiddleware")
+
+// Import controllers
 const approveVenue = require("../controllers/adminController/approveVenue");
 const assignOwner = require("../controllers/adminController/assignOwner");
 const createVenues = require("../controllers/adminController/createVenues");
@@ -13,18 +15,18 @@ const getAllOwners = require("../controllers/adminController/viewAllOwners");
 const getAllVenues = require("../controllers/adminController/viewAllVenues");
 const updateVenue = require("../controllers/adminController/updateVenue");
 
-// Define routes
-router.post("/owners", createOwner); // POST /admin/owners
-router.get("/owners", getAllOwners); // GET /admin/owners
+// Routes
+router.post("/owners", createOwner);
+router.get("/owners", getAllOwners);
 
-router.get("/venues", getAllVenues); // GET /admin/venues
-router.post("/venues", createVenues); // POST /admin/venues
-router.get("/venues/filter", filterVenue); // Optional filter route
-router.get("/venues/:id", viewVenue); // GET /admin/venues/:id
-router.put("/venues/:id", updateVenue); // PUT /admin/venues/:id
-router.delete("/venues/:id", deleteVenue); // DELETE /admin/venues/:id
+router.get("/venues", getAllVenues);
+router.post("/venues", uploadMiddleware, createVenues);// <-- Updated
+router.get("/venues/filter", filterVenue);
+router.get("/venues/:id", viewVenue);
+router.put("/venues/:id", updateVenue);
+router.delete("/venues/:id", deleteVenue);
 
-router.put("/venues/:id/approve", approveVenue); // PUT /admin/venues/:id/approve
-router.put("/venues/:id/assign", assignOwner); // PUT /admin/venues/:id/assign
+router.put("/venues/:id/approve", approveVenue);
+router.put("/venues/:id/assign", assignOwner);
 
 module.exports = router;

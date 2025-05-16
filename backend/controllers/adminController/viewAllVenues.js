@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const getAllVenues = async (req, res) => {
     try {
-        const query = `SELECT * FROM venue`;
+        const query = `SELECT * FROM venues`;
         const { rows } = await pool.query(query); 
         res.status(200).json(rows); 
     } catch (error) {

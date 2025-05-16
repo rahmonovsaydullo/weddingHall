@@ -4,6 +4,7 @@ require('dotenv').config();
 const approveVenue = async (req, res) => {
     const { id } = req.params;
 
+
     try {
         const result = await pool.query(
             `UPDATE venues SET status = 'approved' WHERE id = $1 RETURNING *`,
