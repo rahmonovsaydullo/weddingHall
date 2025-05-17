@@ -1,38 +1,57 @@
-const express = require("express");
-const cors = require("cors");
-const pool = require('../../config/db')
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-
+const pool = require("../../config/db");
 
 const filterVenue = async (req, res) => {
-    const { sortBy } = req.query;
+  const { sortBy, order = "desc", search, status, district } = req.query;
 
-    try {
-        let query = "SELECT * FROM students";
+  try {
+    let query = `
+      SELECT 
+        v.*, 
+        COALESCE(array_agg(i.image_path) FILTER (WHERE i.image_path IS NOT NULL), '{}') AS images
+      FROM venues v
+      LEFT JOIN images i ON v.id = i.venue_id
+      WHERE 1=1
+    `;
 
-        // Buyerda tanlangan sorovga qarab talabalarni filtirlash uchun postgresql ga sorov yuboriladi
-        if (sortBy === "price") {
-            query += " ORDER BY name ASC"; 
-        }  else if (sortBy === "capacity") {
-            query += " ORDER BY grade DESC"; 
-        } else if (sortBy === "district") {
-            query += " ORDER BY grade DESC"; 
-        }else if (sortBy === "status") {
-            query += " ORDER BY grade DESC"; 
-          }
+    const values = [];
+    let count = 1;
 
-        // Ma'lumotlar bazasidan so'rovni bajarish
-        const result = await pool.query(query);
-        res.status(200).json(result.rows); // Natijalarni JSON formatida qaytarish
-    } catch (error) {
-        console.error("Error fetching wedding halls:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+    // 🔍 Search by name
+    if (search) {
+      query += ` AND LOWER(v.name) LIKE LOWER($${count})`;
+      values.push(`%${search}%`);
+      count++;
     }
+
+    // ✅ Filter by status
+    if (status) {
+      query += ` AND v.status = $${count}`;
+      values.push(status);
+      count++;
+    }
+
+    // ✅ Filter by district
+    if (district) {
+      query += ` AND v.district = $${count}`;
+      values.push(district);
+      count++;
+    }
+
+    // Group by venue
+    query += ` GROUP BY v.id`;
+
+    // 🔃 Sort
+    if (sortBy && ["seat_price", "capacity", "district", "status"].includes(sortBy)) {
+      const sortOrder = order.toLowerCase() === "desc" ? "DESC" : "ASC";
+      query += ` ORDER BY v.${sortBy} ${sortOrder}`;
+    }
+
+    const result = await pool.query(query, values);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Error filtering venues:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
-
-module.exports = filterVenue
+module.exports = filterVenue;
