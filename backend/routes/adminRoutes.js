@@ -21,10 +21,10 @@ router.get("/owners", getAllOwners); //✅
 
 router.get("/venues", getAllVenues); //✅
 router.post("/venues", uploadMiddleware, createVenues);// ✅
-router.get("/venues/filter", filterVenue); //
+router.get("/venues/filter", filterVenue); // ✅
 router.get("/venues/:id", viewVenue); //✅
-router.put("/venues/:id", updateVenue);
-router.delete("/venues/:id", deleteVenue);
+router.put("/venues/:id", updateVenue);  //✅
+router.delete("/venues/:id", deleteVenue);  // ✅
 
 router.put("/venues/:id/approve", approveVenue);
 router.put("/venues/:id/assign", assignOwner);

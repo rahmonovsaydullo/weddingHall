@@ -3,11 +3,7 @@ require('dotenv').config();
 
 const updateVenue = async (req, res) => {
     const { id } = req.params;
-    const { name, address, seat_price, phone_number, status, user_id, district } = req.body;
-
-    if (!name || !address || !seat_price || !phone_number || !status || !user_id || !district) {
-        return res.status(400).json({ error: "Missing required fields, error with updating venue" });
-    }
+    const { name, address, seat_price,capacity, phone_number, status, owner_id, district } = req.body;
 
     try {
         const query = `
@@ -15,14 +11,16 @@ const updateVenue = async (req, res) => {
         SET name = $1, 
             address = $2, 
             seat_price = $3, 
-            phone_number = $4, 
-            status = $5, 
-            user_id = $6,
-            district = $7
-        WHERE id = $8
+            capacity = $4,
+            phone_number = $5, 
+            status = $6, 
+            owner_id = $7,
+            district = $8,
+            updated_at = NOW()
+        WHERE id = $9
         RETURNING *`;
 
-        const values = [name, address, seat_price, phone_number, status, user_id, district, id];
+        const values = [name, address, seat_price, capacity, phone_number, status, owner_id, district, id];
         const result = await pool.query(query, values);
 
         if (result.rowCount === 0) {
