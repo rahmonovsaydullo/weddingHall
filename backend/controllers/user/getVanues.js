@@ -5,7 +5,25 @@ const getAllVenues = async (req, res) => {
   const { price, capacity, district, search } = req.query;
 
   try {
-    let query = `SELECT * FROM venues WHERE status = 'approved'`;
+    let query = ` SELECT 
+  v.id,
+  v.name,
+  v.address,
+  v.seat_price,
+  v.capacity,
+  v.phone_number,
+  v.status,
+  d.name AS district,
+  (
+    SELECT i.image_path
+    FROM images i
+    WHERE i.venue_id = v.id
+    ORDER BY i.id
+    LIMIT 1
+  ) AS preview_image
+FROM venues v
+LEFT JOIN district d ON v.district_id = d.id
+WHERE v.status IN ('approved', 'pending', 'booked')`;
     let params = [];
     let conditions = [];
 

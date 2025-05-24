@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch, faLocationDot, faMap, faPhone, faTable, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -10,10 +11,12 @@ function Body() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
+  const navigate =useNavigate()
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/admin/venues');
+        const response = await axios.get('http://localhost:3000/user/venues');
         setData(response.data);
         console.log(response.data);
       } catch (err) {
@@ -35,6 +38,7 @@ function Body() {
           {data.map((venue) => (
             <div
               key={venue.id}
+              onClick={() => navigate(`/venues/${venue.id}`)}
               className="backdrop-blur-lg bg-white/70 shadow-xl rounded-2xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-pink-300"
             >
               <img
