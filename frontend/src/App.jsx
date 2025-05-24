@@ -5,6 +5,7 @@ import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
 import NoPage from './pages/NotFound/NoPage';
 import VenueDetail from './components/VenueDetail/VenueDetail';
+import VenueBooking from './pages/Booking/VenueBooking';
 
 
 
@@ -17,6 +18,8 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path='/venues/:id' element={<VenueDetail/>}/>
+          <Route path="/venues/:id/book" element={<VenueBooking />} />
+
           <Route path="/*" element={<NoPage />} />
         </Routes>
       </Router>

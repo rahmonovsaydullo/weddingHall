@@ -31,23 +31,16 @@ const VenueDetail = () => {
     if (error) return <p className="text-red-500 text-center mt-10">{error}</p>;
     if (!venue) return <p className="text-gray-600 text-center mt-10">Loading...</p>;
 
-    const handleBooking = async () => {
-        const token = localStorage.getItem('token'); // Replace with your auth logic
-
+    const handleBooking = () => {
+        const token = localStorage.getItem('token');
+      
         if (!token) {
-            return navigate('/login'); // Redirect to login if not logged in
+          navigate('/login');
+        } else {
+          navigate(`/venues/${id}/book`);
         }
-
-        try {
-            await axios.post(`http://localhost:3000/user/venues/${id}/book`, {}, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            alert('Booking successful!');
-        } catch (err) {
-            console.error(err);
-            alert('Booking failed!');
-        }
-    };
+      };
+      
 
     return (
         <div className="pt-28 px-4 sm:px-8 bg-[#eaf4fc] min-h-screen pb-10">

@@ -1,0 +1,21 @@
+.react-datepicker {
+    font-family: 'Inter', sans-serif;
+    border: 1px solid #ddd;
+    border-radius: 0.75rem;
+    padding: 0.5rem;
+  }
+  
+  .react-datepicker__day--selected {
+    background-color: #22c55e !important; /* green-500 */
+    color: white;
+  }
+  
+  .react-datepicker__day--disabled {
+    color: #d1d5db !important; /* gray-300 */
+  }
+  
+  .react-datepicker__day--booked {
+    background-color: #ef4444 !important; /* red-500 */
+    color: white;
+  }
+  

@@ -1,39 +1,42 @@
-// controllers/user/bookVenue.js
 const pool = require('../../config/db');
 
 const bookVenue = async (req, res) => {
   const { id } = req.params;
-  const { first_name, last_name, phone, guest_count, booking_date } = req.body;
+  const {
+    guest_amount,
+    reservation_date,
+    first_name,
+    last_name,
+    phone_number,
+  } = req.body;
 
-  if (!first_name || !last_name || !phone || !guest_count || !booking_date) {
+  if (!guest_amount || !reservation_date || !first_name || !last_name || !phone_number) {
     return res.status(400).json({ error: 'All fields are required' });
   }
 
   try {
-    // Check if the date is already booked for this venue
     const existing = await pool.query(
-      'SELECT * FROM bookings WHERE venue_id = $1 AND booking_date = $2',
-      [id, booking_date]
+      'SELECT * FROM booking WHERE venue_id = $1 AND reservation_date = $2',
+      [id, reservation_date]
     );
 
     if (existing.rows.length > 0) {
       return res.status(409).json({ error: 'Date already booked' });
     }
 
-    // Insert new booking
     const query = `
-      INSERT INTO bookings (venue_id, first_name, last_name, phone, guest_count, booking_date, status)
-      VALUES ($1, $2, $3, $4, $5, $6, 'pending')
+      INSERT INTO booking (venue_id, guest_amount, reservation_date, status, first_name, last_name, phone_number)
+      VALUES ($1, $2, $3, 'booked', $4, $5, $6)
       RETURNING *
     `;
 
     const { rows } = await pool.query(query, [
       id,
+      guest_amount,
+      reservation_date,
       first_name,
       last_name,
-      phone,
-      guest_count,
-      booking_date
+      phone_number,
     ]);
 
     res.status(201).json({ message: 'Booking created', booking: rows[0] });
