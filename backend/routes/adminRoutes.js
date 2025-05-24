@@ -4,7 +4,7 @@ const router = express.Router();
 const uploadMiddleware = require("../middlewares/uploadMiddleware")
 
 // Import controllers
-const approveVenue = require("../controllers/adminController/approveVenue"); 
+const approveVenue = require("../controllers/adminController/approveVenue");
 const assignOwner = require("../controllers/adminController/assignOwner");
 const createVenues = require("../controllers/adminController/createVenues");
 const viewVenue = require("../controllers/adminController/viewVenue");
@@ -14,6 +14,10 @@ const filterVenue = require("../controllers/adminController/filterVenues");
 const getAllOwners = require("../controllers/adminController/viewAllOwners");
 const getAllVenues = require("../controllers/adminController/viewAllVenues");
 const updateVenue = require("../controllers/adminController/updateVenue");
+
+// check role
+adminRoute.use(checkRole(["admin"]));
+
 
 // Routes
 router.post("/owners", createOwner); // ✅

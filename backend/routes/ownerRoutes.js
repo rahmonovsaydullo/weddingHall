@@ -7,6 +7,10 @@ const getVenuesBookings = require("../controllers/owner/getVenuesBookings");
 const deleteBooking = require("../controllers/owner/deleteBooking");
 const createVenueByOwner = require("../controllers/owner/addVenue");
 
+// check role
+adminRoute.use(checkRole(["owner"]));
+
+
 // POST /owner/venues – Add new venue
 router.post("/venues", createVenueByOwner);
 

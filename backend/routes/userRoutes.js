@@ -9,6 +9,11 @@ const getVenue = require("../controllers/user/getVanue");
 const getVenueCalendar = require("../controllers/user/getVenueCalendar");
 const bookVenue = require("../controllers/user/bookVenue");
 const getUserBookings = require("../controllers/user/getOwnBookedVenues");
+const { getBookedDates } = require("../controllers/user/bookedDates");
+
+// check role
+adminRoute.use(checkRole(["user"]));
+
 
 // Auth
 router.post("/register", registerUser);
@@ -19,6 +24,7 @@ router.get("/venues", getAllVenues); // only approved venues with filters
 router.get("/venues/:id", getVenue)
 router.get("/venues/:id/calendar", getVenueCalendar);
 router.post("/venues/:id/book", bookVenue);
+router.get("/venues/:id/booked-dates", getBookedDates);
 
 // Bookings
 router.get("/bookings", getUserBookings);
