@@ -53,13 +53,6 @@ function Body() {
                 <p className="text-gray-700"><strong><FontAwesomeIcon icon={faCouch}/> Seat Price:</strong> ${venue.seat_price}</p>
                 <p className="text-gray-700"><strong><FontAwesomeIcon icon={faUsers}/> Capacity:</strong> {venue.capacity} guests</p>
                 <p className="text-gray-700"><strong><FontAwesomeIcon icon={faPhone}/> Phone:</strong> {venue.phone_number}</p>
-                <span
-                  className={`inline-block mt-4 px-3 py-1 text-sm font-medium rounded-full ${
-                    venue.status === 'approved' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
-                  }`}
-                >
-                  {venue.status}
-                </span>
               </div>
             </div>
           ))}
