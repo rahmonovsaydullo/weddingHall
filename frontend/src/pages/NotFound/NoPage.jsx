@@ -1,14 +1,13 @@
 import React from 'react'
 import Header from '../../components/Header/Header'
-import Body from '../../components/Body/Body'
 
-function Home() {
+function NoPage() {
   return (
     <div>
-      <Header />
-      <Body />
+      <Header/>
+      <h1>Not found</h1>
     </div>
   )
 }
 
-export default Home
+export default NoPage
