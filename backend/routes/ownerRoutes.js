@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+// middleware
+const checkRole = require("../middlewares/checkRole")
 
 const updateVenue = require("../controllers/owner/updateVanue");
 const getVenuesBookings = require("../controllers/owner/getVenuesBookings");
@@ -8,7 +10,7 @@ const deleteBooking = require("../controllers/owner/deleteBooking");
 const createVenueByOwner = require("../controllers/owner/addVenue");
 
 // check role
-adminRoute.use(checkRole(["owner"]));
+router.use(checkRole(["owner"]));
 
 
 // POST /owner/venues – Add new venue

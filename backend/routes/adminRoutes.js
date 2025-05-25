@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const uploadMiddleware = require("../middlewares/uploadMiddleware")
+const checkRole = require("../middlewares/checkRole")
 
 // Import controllers
 const approveVenue = require("../controllers/adminController/approveVenue");
@@ -16,7 +17,7 @@ const getAllVenues = require("../controllers/adminController/viewAllVenues");
 const updateVenue = require("../controllers/adminController/updateVenue");
 
 // check role
-adminRoute.use(checkRole(["admin"]));
+router.use(checkRole(["admin"]));
 
 
 // Routes
