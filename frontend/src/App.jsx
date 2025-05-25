@@ -1,11 +1,11 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
 import NoPage from './pages/NotFound/NoPage';
 import VenueDetail from './components/VenueDetail/VenueDetail';
 import VenueBooking from './pages/Booking/VenueBooking';
+import Register from './pages/User/Register';
 
 
 
