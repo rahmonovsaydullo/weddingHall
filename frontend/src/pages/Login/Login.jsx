@@ -22,13 +22,17 @@ const Login = () => {
     setError("");
 
     try {
-     const res = await axios.post("http://localhost:3000/auth/login", formData);
+      const res = await axios.post("http://localhost:3000/auth/login", formData);
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user_id", res.data.user.id);
+      console.log(res.data);
+
+
       navigate("/");
     } catch (err) {
       setError("Login failed. Please check your credentials.");
       console.log(err);
-      
+
     } finally {
       setIsLoading(false);
     }
@@ -77,9 +81,8 @@ const Login = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full bg-[#3a506b] hover:bg-[#1e3247] text-white py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.03] ${
-              isLoading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`w-full bg-[#3a506b] hover:bg-[#1e3247] text-white py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.03] ${isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
           >
             {isLoading ? "Logging in..." : "Login"}
           </button>

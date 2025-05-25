@@ -6,6 +6,8 @@ import NoPage from './pages/NotFound/NoPage';
 import VenueDetail from './components/VenueDetail/VenueDetail';
 import VenueBooking from './pages/Booking/VenueBooking';
 import Register from './pages/User/Register';
+import MyBookings from './pages/User/MyBookings';
+
 
 
 
@@ -19,7 +21,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path='/venues/:id' element={<VenueDetail/>}/>
           <Route path="/venues/:id/book" element={<VenueBooking />} />
-
+          <Route path='/bookings' element={<MyBookings/>}/>
           <Route path="/*" element={<NoPage />} />
         </Routes>
       </Router>

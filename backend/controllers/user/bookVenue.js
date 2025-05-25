@@ -8,6 +8,7 @@ const bookVenue = async (req, res) => {
     first_name,
     last_name,
     phone_number,
+    user_id
   } = req.body;
 
   if (!guest_amount || !reservation_date || !first_name || !last_name || !phone_number) {
@@ -25,8 +26,8 @@ const bookVenue = async (req, res) => {
     }
 
     const query = `
-      INSERT INTO booking (venue_id, guest_amount, reservation_date, status, first_name, last_name, phone_number)
-      VALUES ($1, $2, $3, 'booked', $4, $5, $6)
+      INSERT INTO booking (venue_id, guest_amount, reservation_date, status, first_name, last_name, phone_number, user_id)
+      VALUES ($1, $2, $3, 'pending', $4, $5, $6, $7)
       RETURNING *
     `;
 
@@ -37,6 +38,7 @@ const bookVenue = async (req, res) => {
       first_name,
       last_name,
       phone_number,
+      user_id
     ]);
 
     res.status(201).json({ message: 'Booking created', booking: rows[0] });
