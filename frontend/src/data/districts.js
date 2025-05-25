@@ -1,0 +1,1 @@
+export const districts = ['Bektemir', 'Mirobod', "Mirzo Ulug‘bek", 'Sergeli', 'Olmazor', 'Uchtepa', 'Shayxontohur', 'Yashnobod', 'Chilonzor', 'Yunusobod', 'Yakkasaroy']

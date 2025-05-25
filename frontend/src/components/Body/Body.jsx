@@ -5,13 +5,14 @@ import {
   faCouch, faLocationDot, faMap, faPhone, faUsers, faSearch
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { districts } from '../../data/districts';
 
 function Body() {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
-  const [districts, setDistricts] = useState([]);
+
   const [selectedDistrict, setSelectedDistrict] = useState('');
   const [capacityRange, setCapacityRange] = useState([0, 1000]);
   const [sortBy, setSortBy] = useState('');
@@ -24,8 +25,7 @@ function Body() {
         const venues = response.data;
         setData(venues);
         setFilteredData(venues);
-        const uniqueDistricts = [...new Set(venues.map(v => v.district))];
-        setDistricts(uniqueDistricts);
+        
       } catch (error) {
         console.error("❌ Error fetching data:", error);
         setError(error);

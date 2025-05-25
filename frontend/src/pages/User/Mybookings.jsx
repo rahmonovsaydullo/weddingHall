@@ -5,18 +5,16 @@ import {
   faCalendarDays,
   faUserGroup,
   faMapLocationDot,
-  faCheckCircle,
-  faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import Header from '../../components/Header/Header'
-
+import { useNavigate } from 'react-router-dom';
+import Header from '../../components/Header/Header';
 
 const MyBookings = () => {
-
   const [bookings, setBookings] = useState([]);
   const [status, setStatus] = useState('idle'); // idle | loading | error | success
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
   const user_id = localStorage.getItem('user_id');
   const token = localStorage.getItem('token');
 
@@ -42,13 +40,20 @@ const MyBookings = () => {
         setStatus('success');
       } catch (err) {
         console.error("❌ Error fetching bookings:", err);
+        // Check for auth errors and redirect to login
+        if (err.response?.status === 401 || err.response?.status === 403) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user_id');
+          navigate('/login');
+          return; // Stop further execution
+        }
         setError(err.response?.data?.message || err.message || 'Failed to load bookings');
         setStatus('error');
       }
     };
 
     fetchBookings();
-  }, [user_id, token]);
+  }, [user_id, token, navigate]);
 
   const renderContent = () => {
     if (status === 'loading') {
@@ -66,7 +71,7 @@ const MyBookings = () => {
     if (status === 'success') {
       return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 cursor-pointer">
-          {bookings.map(({ id, reservation_date, status, guest_amount, venue_name, venue_location }) => (
+          {bookings.map(({ id, reservation_date, guest_amount, venue_name, venue_location }) => (
             <div
               key={id}
               className="backdrop-blur-lg bg-white/70 shadow-xl rounded-2xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-pink-300"
@@ -103,12 +108,13 @@ const MyBookings = () => {
   };
 
   return (
-   <>
-   <Header/>
-    <div className="mx-auto px-4 py-10 pt-20 bg-gradient-to-br from-pink-50 to-white min-h-screen max-w-7xl">
-      <h1 className="text-3xl font-bold text-center text-pink-600 mb-10">My Bookings</h1>
-      {renderContent()}
-    </div></>
+    <>
+      <Header />
+      <div className="mx-auto px-4 py-10 pt-20 bg-gradient-to-br from-pink-50 to-white min-h-screen max-w-7xl">
+        <h1 className="text-3xl font-bold text-center text-pink-600 mb-10">My Bookings</h1>
+        {renderContent()}
+      </div>
+    </>
   );
 };
 
