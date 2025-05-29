@@ -1,20 +1,27 @@
-const checkRole = (allowedRoles) => {
-    return (req, res, next) => {
-        try {
-            if(!req.user){
-                return res.status(403).json({message: "User not logged in"})
-            }
-            if(allowedRoles.includes(req.user.role)) { // teacher
-				next()
-			}
-			else {
-				return res.status(403).json({ message: "You don't have access to this action" });
-			}
-        } catch (error) {
-            console.log(error);
-            res.status(500).json(error.message)
-        }
-    }
-}
+const jwt = require('jsonwebtoken');
 
-module.exports = checkRole
+const checkRole = (allowedRoles) => {
+  return (req, res, next) => {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer")) {
+      return res.status(403).json({ error: "Access denied: No token provided" });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      if (!allowedRoles.includes(decoded.role)) {
+        return res.status(403).json({ error: "Access denied: Invalid role" });
+      }
+
+      req.user = decoded; // save user data for later
+      next();
+    } catch (error) {
+      return res.status(403).json({ error: "Access denied: Invalid token" });
+    }
+  };
+};
+
+module.exports = checkRole;

@@ -5,5 +5,5 @@ import App from './App.jsx'
 import Body from './components/Body/Body.jsx'
 
 createRoot(document.getElementById('root')).render(
-<App/>
+ <App/> 
 )

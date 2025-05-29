@@ -7,6 +7,7 @@ import VenueDetail from './components/VenueDetail/VenueDetail';
 import VenueBooking from './pages/Booking/VenueBooking';
 import Register from './pages/User/Register';
 import MyBookings from './pages/User/MyBookings';
+import AdminRoutes from './routes/AdminRoutes';
 
 
 
@@ -17,11 +18,12 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/admin/*" element={<AdminRoutes />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path='/venues/:id' element={<VenueDetail/>}/>
+          <Route path='/venues/:id' element={<VenueDetail />} />
           <Route path="/venues/:id/book" element={<VenueBooking />} />
-          <Route path='/bookings' element={<MyBookings/>}/>
+          <Route path='/bookings' element={<MyBookings />} />
           <Route path="/*" element={<NoPage />} />
         </Routes>
       </Router>
