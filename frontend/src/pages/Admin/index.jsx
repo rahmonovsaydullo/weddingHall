@@ -1,12 +1,11 @@
-import React from 'react'
-import AdminSidebar from '../../components/SideBar/SideBar'
+import React from 'react';
 
-function index() {
+const AdminDashboard = () => {
   return (
     <div>
-      <AdminSidebar/>
+      <h1 className="text-2xl font-bold">Welcome to the Admin Dashboard</h1>
     </div>
-  )
-}
+  );
+};
 
-export default index
+export default AdminDashboard;

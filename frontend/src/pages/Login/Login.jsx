@@ -20,23 +20,32 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-
+  
     try {
       const res = await axios.post("http://localhost:3000/auth/login", formData);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user_id", res.data.user.id);
-      console.log(res.data);
-
-
-      navigate("/");
+      
+      const { token, user } = res.data;
+      
+      localStorage.setItem("token", token);
+      localStorage.setItem("user_id", user.id);
+      localStorage.setItem("role", user.role); // Store role for later usage
+  
+      console.log("✅ Logged in user:", user);
+  
+      // Redirect based on role
+      if (user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       setError("Login failed. Please check your credentials.");
       console.log(err);
-
     } finally {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#eaf4fc] px-4">

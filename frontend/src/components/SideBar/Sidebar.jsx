@@ -13,28 +13,29 @@ const AdminSidebar = () => {
   const links = [
     { to: '/admin/add-venue', label: 'Add Venue', icon: faPlus },
     { to: '/admin/add-owner', label: 'Add Owner', icon: faUserPlus },
-    { to: '/admin/venues', label: 'See All Venues', icon: faBuilding },
-    { to: '/admin/owners', label: 'See All Owners', icon: faUsers },
-    { to: '/admin/bookings', label: 'See All Bookings', icon: faCalendarCheck },
+    { to: '/admin/all-venues', label: 'All Venues', icon: faBuilding },
+    { to: '/admin/all-owners', label: 'All Owners', icon: faUsers },
+    { to: '/admin/bookings', label: 'All Bookings', icon: faCalendarCheck },
   ];
 
   return (
-    <aside className="w-64 min-h-screen bg-pink-100 shadow-lg fixed top-0 left-0 flex flex-col">
-      <div className="py-6 px-6 text-center font-bold text-2xl text-pink-700 border-b border-pink-300">
+    <aside className="w-64 min-h-screen bg-gradient-to-b from-pink-100 to-pink-200 shadow-xl fixed top-0 left-0 flex flex-col">
+      <div className="py-6 px-6 text-center font-bold text-3xl text-rose-800 border-b border-rose-300 tracking-wide">
         Admin Panel
       </div>
-      <nav className="flex flex-col flex-grow mt-4">
+      <nav className="flex flex-col flex-grow mt-6 gap-2 px-3">
         {links.map(({ to, label, icon }) => (
           <NavLink
             key={to}
             to={to}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-6 py-3 text-pink-700 hover:bg-pink-300 transition
-              ${isActive ? 'bg-pink-300 font-semibold rounded-r-lg' : 'font-normal'}`
+              `flex items-center gap-3 px-5 py-3 text-rose-800 rounded-xl transition-all duration-200 
+              hover:bg-rose-100 hover:shadow-md 
+              ${isActive ? 'bg-white shadow-lg border border-rose-300 font-semibold' : 'bg-transparent'}`
             }
           >
-            <FontAwesomeIcon icon={icon} />
-            {label}
+            <FontAwesomeIcon icon={icon} className="text-rose-500" />
+            <span className="text-lg">{label}</span>
           </NavLink>
         ))}
       </nav>
