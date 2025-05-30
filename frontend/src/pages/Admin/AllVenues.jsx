@@ -8,6 +8,7 @@ const AdminViewAllVenues = () => {
   const [error, setError] = useState('');
 
   const token = localStorage.getItem('token');
+console.log(token);
 
   useEffect(() => {
     const fetchVenues = async () => {
@@ -17,6 +18,8 @@ const AdminViewAllVenues = () => {
             Authorization: `Bearer ${token}`,
           },
         });
+        console.log(res);
+        
         setVenues(res.data);
       } catch (err) {
         setError(err.response?.data?.error || 'Failed to fetch venues.');
