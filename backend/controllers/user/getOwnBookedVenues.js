@@ -14,6 +14,7 @@ const getUserBookings = async (req, res) => {
         v.name AS venue_name,
         v.address AS venue_location,
         v.capacity,
+        v.phone_number,
         v.seat_price
       FROM booking b
       JOIN venues v ON b.venue_id = v.id

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { districts } from '../../data/districts';
+import axios from '../../utils/axiosInstance';
 
 const AdminCreateVenue = () => {
   const [formData, setFormData] = useState({
@@ -9,22 +10,22 @@ const AdminCreateVenue = () => {
     seat_price: '',
     capacity: '',
     phone_number: '',
-    preview_image: null,
+    images: [],
   });
 
-  const [status, setStatus] = useState('idle'); // idle | loading | success | error
-  const [error, setError] = useState(null);
 
-  const token = localStorage.getItem('token');
+  const [status, setStatus] = useState('idle');
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'preview_image') {
-      setFormData((prev) => ({ ...prev, preview_image: files[0] }));
+      setFormData((prev) => ({ ...prev, images: Array.from(files) }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,11 +40,14 @@ const AdminCreateVenue = () => {
       data.append('seat_price', formData.seat_price);
       data.append('capacity', formData.capacity);
       data.append('phone_number', formData.phone_number);
-      if (formData.preview_image) {
-        data.append('preview_image', formData.preview_image);
-      }
+      // Append images
+      formData.images.forEach((file, index) => {
+        data.append('images', file);
+      });
 
-      const response = await axios.post('http://localhost:3000/admin/venues', data, {
+      const token = localStorage.getItem('token');
+
+      const response = await axios.post('/admin/venues', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
@@ -59,7 +63,7 @@ const AdminCreateVenue = () => {
         seat_price: '',
         capacity: '',
         phone_number: '',
-        preview_image: null,
+        images: [],
       });
     } catch (err) {
       console.error('Error creating venue:', err);
@@ -103,14 +107,18 @@ const AdminCreateVenue = () => {
 
         <div>
           <label className="block mb-1 font-medium">District</label>
-          <input
+          <select
             name="district"
             value={formData.district}
             onChange={handleChange}
             required
             className="w-full border border-gray-300 rounded px-3 py-2"
-            placeholder="District"
-          />
+          >
+            <option value="" disabled>Select a district</option>
+            {districts.map((district) => (
+              <option key={district} value={district}>{district}</option>
+            ))}
+          </select>
         </div>
 
         <div>
@@ -156,9 +164,10 @@ const AdminCreateVenue = () => {
         <div>
           <label className="block mb-1 font-medium">Preview Image</label>
           <input
-            name="preview_image"
+            name="images"
             type="file"
             accept="image/*"
+            multiple
             onChange={handleChange}
             className="w-full"
           />

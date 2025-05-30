@@ -32,13 +32,3 @@ module.exports = uploadMiddleware
 
 
 
-// exaple usage
-
-// const express = require('express');
-// const router = express.Router();
-// const uploadMiddleware = require('./uploadMiddleware');
-
-// router.post('/upload', uploadMiddleware, (req, res) => {
-//   console.log(req.files); // Array of uploaded file info
-//   res.send('Files uploaded successfully');
-// });

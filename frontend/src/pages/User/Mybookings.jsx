@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCalendarDays,
   faUserGroup,
   faMapLocationDot,
+  faPhone,
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
+import axios from '../../utils/axiosInstance';
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -29,7 +30,7 @@ const MyBookings = () => {
     const fetchBookings = async () => {
       setStatus('loading');
       try {
-        const response = await axios.get('http://localhost:3000/user/bookings', {
+        const response = await axios.get('/user/bookings', {
           params: { user_id },
           headers: {
             Authorization: `Bearer ${token}`,
@@ -71,7 +72,7 @@ const MyBookings = () => {
     if (status === 'success') {
       return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 cursor-pointer">
-          {bookings.map(({ id, reservation_date, guest_amount, venue_name, venue_location }) => (
+          {bookings.map(({ id, reservation_date, guest_amount, venue_name, venue_location, phone_number}) => (
             <div
               key={id}
               className="backdrop-blur-lg bg-white/70 shadow-xl rounded-2xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-pink-300"
@@ -84,6 +85,10 @@ const MyBookings = () => {
                   <span className="font-medium">Location:</span> {venue_location}
                 </p>
 
+                <p className="text-gray-700 mb-1">
+                  <FontAwesomeIcon icon={faPhone} className="text-pink-500 mr-2" />
+                  <span className="font-medium">Phone:</span> {phone_number}
+                </p>
                 <p className="text-gray-700 mb-1">
                   <FontAwesomeIcon icon={faCalendarDays} className="text-pink-500 mr-2" />
                   <span className="font-medium">Date:</span> {new Date(reservation_date).toLocaleDateString()}

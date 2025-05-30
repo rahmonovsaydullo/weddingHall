@@ -50,102 +50,32 @@ const VenueBooking = () => {
     };
 
     const handleDateChange = (dateStr) => {
-        setSelectedDate(dateStr); // Only update state, not submit anything
+        setSelectedDate(dateStr); 
     };
 
-    // const handleBooking = async (e) => {
-    //     e.preventDefault();
-    //     setError("");
-    //     setSuccess("");
-
-    //     if (!selectedDate) {
-    //         setError("Please select a valid date.");
-    //         return;
-    //     }
-
-    //     const bookingData = {
-    //         ...formData,
-    //         reservation_date: selectedDate,
-    //     };
-
-    //     try {
-    //         await axios.post(`http://localhost:3000/user/venues/${id}/book`, bookingData);
-    //         setSuccess("Booking successful!");
-    //         setTimeout(() => navigate("/"), 1000);
-    //     } catch (err) {
-    //         if (err.response?.status === 409) {
-    //             setError("This date is already booked.");
-    //         } else {
-    //             setError("Booking failed. Please check your inputs.");
-    //         }
-    //     }
-    // };
-
-    // const handleBooking = async (e) => {
-    //     e.preventDefault();
-    //     setError("");
-    //     setSuccess("");
-      
-    //     if (!selectedDate) {
-    //       setError("Please select a valid date.");
-    //       return;
-    //     }
-      
-    //     const bookingData = {
-    //       ...formData,
-    //       reservation_date: selectedDate,
-    //     };
-      
-    //     const token = localStorage.getItem('token'); 
-      
-    //     if (!token) {
-    //       setError("You must be logged in to make a booking.");
-    //       return;
-    //     }
-      
-    //     try {
-    //       await axios.post(
-    //         `http://localhost:3000/user/venues/${id}/book`,
-    //         bookingData,
-    //         {
-    //           headers: {
-    //             Authorization: `Bearer ${token}`,
-    //           },
-    //         }
-    //       );
-    //       setSuccess("Booking successful!");
-    //     //   setTimeout(() => navigate("/"), 1000);
-    //     } catch (err) {
-    //       if (err.response?.status === 409) {
-    //         setError("This date is already booked.");
-    //       } else {
-    //         setError("Booking failed. Please check your inputs.");
-    //       }
-    //     }
-    //   };
 
     const handleBooking = async (e) => {
         e.preventDefault();
         setError("");
         setSuccess("");
-    
+
         if (!selectedDate) {
             setError("Please select a valid date.");
             return;
         }
-    
+
         const bookingData = {
             ...formData,
             reservation_date: selectedDate,
         };
-    
+
         const token = localStorage.getItem('token');
-    
+
         if (!token) {
             setError("You must be logged in to make a booking.");
             return;
         }
-    
+
         try {
             const response = await axios.post(
                 `http://localhost:3000/user/venues/${id}/book`,
@@ -156,14 +86,14 @@ const VenueBooking = () => {
                     },
                 }
             );
-            
+
             console.log("Booking response:", response.data); // ✅ Log the success response
-    
+
             setSuccess("Booking successful!");
             setTimeout(() => navigate("/"), 1000);
         } catch (err) {
             console.error("Booking error:", err); // ✅ Log full error
-    
+
             if (err.response?.status === 409) {
                 setError("This date is already booked.");
             } else {
@@ -171,8 +101,8 @@ const VenueBooking = () => {
             }
         }
     };
-    
-      
+
+
     if (!venue) return <p className="text-center mt-10">Loading venue...</p>;
 
     return (
