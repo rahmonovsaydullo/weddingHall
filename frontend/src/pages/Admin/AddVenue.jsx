@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { districts } from '../../data/districts';
 import axios from '../../utils/axiosInstance';
 
@@ -6,26 +6,44 @@ const AdminCreateVenue = () => {
   const [formData, setFormData] = useState({
     name: '',
     address: '',
-    district: '',
+    district_id: '',
     seat_price: '',
     capacity: '',
     phone_number: '',
+    owner_id: '',
     images: [],
   });
 
-
+  const [owners, setOwners] = useState([]);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const fetchOwners = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await axios.get('/admin/owners', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setOwners(res.data.owners || []);
+      } catch (err) {
+        console.error('Failed to fetch owners:', err);
+      }
+    };
+
+    fetchOwners();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (name === 'preview_image') {
+    if (name === 'images') {
       setFormData((prev) => ({ ...prev, images: Array.from(files) }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,18 +54,19 @@ const AdminCreateVenue = () => {
       const data = new FormData();
       data.append('name', formData.name);
       data.append('address', formData.address);
-      data.append('district', formData.district);
+      data.append('district_id', formData.district_id);
       data.append('seat_price', formData.seat_price);
       data.append('capacity', formData.capacity);
       data.append('phone_number', formData.phone_number);
+      data.append('owner_id', formData.owner_id);
       // Append images
-      formData.images.forEach((file, index) => {
+      formData.images.forEach((file) => {
         data.append('images', file);
       });
 
       const token = localStorage.getItem('token');
 
-      const response = await axios.post('/admin/venues', data, {
+      await axios.post('/admin/venues', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
@@ -59,21 +78,22 @@ const AdminCreateVenue = () => {
       setFormData({
         name: '',
         address: '',
-        district: '',
+        district_id: '',
         seat_price: '',
         capacity: '',
         phone_number: '',
+        owner_id: '',
         images: [],
       });
     } catch (err) {
       console.error('Error creating venue:', err);
-      setError(err.response?.data?.message || err.message || 'Failed to create venue');
+      setError(err.response?.data?.error || err.message || 'Failed to create venue');
       setStatus('error');
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded shadow mt-10">
+    <div className="max-w-xl mx-auto p-3 bg-white rounded shadow ">
       <h2 className="text-2xl font-bold mb-6 text-pink-600">Create Wedding Venue</h2>
 
       {status === 'error' && (
@@ -108,15 +128,19 @@ const AdminCreateVenue = () => {
         <div>
           <label className="block mb-1 font-medium">District</label>
           <select
-            name="district"
-            value={formData.district}
+            name="district_id"
+            value={formData.district_id}
             onChange={handleChange}
             required
             className="w-full border border-gray-300 rounded px-3 py-2"
           >
-            <option value="" disabled>Select a district</option>
+            <option value="" disabled>
+              Select a district
+            </option>
             {districts.map((district) => (
-              <option key={district.id} value={district.id}>{district.name}</option>
+              <option key={district.id} value={district.id}>
+                {district.name}
+              </option>
             ))}
           </select>
         </div>
@@ -162,7 +186,27 @@ const AdminCreateVenue = () => {
         </div>
 
         <div>
-          <label className="block mb-1 font-medium">Preview Image</label>
+          <label className="block mb-1 font-medium">Owner</label>
+          <select
+            name="owner_id"
+            value={formData.owner_id}
+            onChange={handleChange}
+            required
+            className="w-full border border-gray-300 rounded px-3 py-2"
+          >
+            <option value="" disabled>
+              Select an owner
+            </option>
+            {owners.map((owner) => (
+              <option key={owner.id} value={owner.id}>
+                {owner.first_name} {owner.last_name} ({owner.user_name})
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block mb-1 font-medium">Preview Images</label>
           <input
             name="images"
             type="file"

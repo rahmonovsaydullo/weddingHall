@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axiosInstance';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCouch, faLocationDot, faMap, faPhone, faUsers, faSearch
@@ -21,7 +22,7 @@ function Body() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/user/venues");
+        const response = await axios.get("/user/venues");
         const venues = response.data;
         setData(venues);
         setFilteredData(venues);

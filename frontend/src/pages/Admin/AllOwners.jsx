@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axiosInstance';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const AdminViewAllOwners = () => {
+const AllOwners = () => {
   const [owners, setOwners] = useState([]);
   const [error, setError] = useState('');
 
@@ -12,13 +12,13 @@ const AdminViewAllOwners = () => {
   useEffect(() => {
     const fetchOwners = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/admin/owners', {
+        const res = await axios.get('/admin/owners', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        setOwners(res.data.teachers);
+        setOwners(res.data.owners);
       } catch (err) {
         setError(err.response?.data?.error || 'Failed to fetch owners.');
       }
@@ -55,4 +55,4 @@ const AdminViewAllOwners = () => {
   );
 };
 
-export default AdminViewAllOwners;
+export default AllOwners;

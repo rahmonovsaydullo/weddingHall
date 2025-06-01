@@ -5,7 +5,9 @@ import AdminCreateVenue from '../pages/Admin/AddVenue'
 import AllVenues from '../pages/Admin/AllVenues'
 import CreateOwner from '../pages/Admin/CreateOwner'
 import AdminDashboard from '../pages/Admin' // this is index.jsx
-import AdminViewAllOwners from '../pages/Admin/AllOwners'
+import ApproveVenue from '../pages/Admin/ApproveVenue'
+import AllBooking from '../pages/Admin/AllBooking'
+import AllOwners from '../pages/Admin/AllOwners'
 
 function AdminRoutes() {
   return (
@@ -14,8 +16,10 @@ function AdminRoutes() {
         <Route index element={<AdminDashboard />} />
         <Route path="add-venue" element={<AdminCreateVenue />} />
         <Route path="all-venues" element={<AllVenues />} />
-        <Route path="add-owners" element={<CreateOwner />} />
-        <Route path="all-owners" element={<AdminViewAllOwners />} />
+        <Route path="add-owner" element={<CreateOwner />} />
+        <Route path="all-owners" element={<AllOwners />} />
+        <Route path="approve-venue" element={<ApproveVenue />} />
+        <Route path="all-booking" element={<AllBooking />} />
       </Route>
     </Routes>
   )

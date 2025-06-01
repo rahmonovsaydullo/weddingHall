@@ -12,7 +12,7 @@ const getAllOwners  = async (req, res) => {
 
     res.status(200).json({
       message: 'All owners list',
-      teachers: result.rows,
+      owners: result.rows,
     });
   } catch (error) {
     console.error(error);

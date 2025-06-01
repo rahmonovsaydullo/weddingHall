@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
+import axios from '../../utils/axiosInstance';
 import { isSameDay, isBefore } from "date-fns";
 
 const BookingCalendar = ({ venueId, selectedDate, onDateChange }) => {
@@ -10,7 +10,7 @@ const BookingCalendar = ({ venueId, selectedDate, onDateChange }) => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/user/venues/${venueId}/bookings`);
+        const res = await axios.get(`user/venues/${venueId}/bookings`);
         setBookedDates(res.data.bookings);
       } catch (err) {
         console.error("Failed to fetch bookings", err);

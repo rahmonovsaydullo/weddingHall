@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from '../../utils/axiosInstance';
 import TailwindDatePicker from "../../components/TailwindDatePicker/TailwindDatePicker";
 
 const VenueBooking = () => {
@@ -25,7 +25,7 @@ const VenueBooking = () => {
     useEffect(() => {
         const fetchVenue = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/user/venues/${id}`);
+                const res = await axios.get(`/user/venues/${id}`);
                 setVenue(res.data.venue);
             } catch (err) {
                 setError("Failed to load venue");
@@ -50,7 +50,7 @@ const VenueBooking = () => {
     };
 
     const handleDateChange = (dateStr) => {
-        setSelectedDate(dateStr); 
+        setSelectedDate(dateStr);
     };
 
 

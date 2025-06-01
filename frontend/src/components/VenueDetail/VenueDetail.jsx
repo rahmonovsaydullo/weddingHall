@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../utils/axiosInstance';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMap, faUsers, faCouch, faPhone } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,7 +15,7 @@ const VenueDetail = () => {
     useEffect(() => {
         const fetchVenue = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/user/venues/${id}`);
+                const res = await axios.get(`/user/venues/${id}`);
                 setVenue(res.data.venue);
                 setImages(res.data.images);
                 console.log(res);

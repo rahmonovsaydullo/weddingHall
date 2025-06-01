@@ -1,28 +1,21 @@
+// Example: GET /admin/venues/unapproved
 const pool = require('../../config/db');
-require('dotenv').config();
 
-const approveVenue = async (req, res) => {
-    const { id } = req.params;
+const getUnapprovedVenues = async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT v.id, v.name, v.address, v.seat_price, v.capacity, v.phone_number, v.owner_id, v.district_id, u.first_name, u.last_name
+      FROM venues v
+      JOIN "user" u ON v.owner_id = u.id
+      WHERE v.status = 'pending'
+      ORDER BY v.id DESC
+    `);
 
-
-    try {
-        const result = await pool.query(
-            `UPDATE venues SET status = 'approved' WHERE id = $1 RETURNING *`,
-            [id]
-        );
-
-        if (result.rowCount === 0) {
-            return res.status(404).json({ error: "Venue not found" });
-        }
-
-        res.status(200).json({
-            message: "Venue approved successfully! ✅",
-            approved_venue: result.rows[0],
-        });
-    } catch (error) {
-        console.error('Error approving venue:', error);
-        res.status(500).json({ error: "Internal server error while approving venue" });
-    }
+    res.status(200).json({ venues: result.rows });
+  } catch (error) {
+    console.error('Error fetching unapproved venues:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 };
 
-module.exports = approveVenue;
+module.exports = getUnapprovedVenues;

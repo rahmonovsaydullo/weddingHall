@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../../utils/axiosInstance';
+
 
 const CreateOwner = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,7 @@ const CreateOwner = () => {
     console.log(token);
     
     try {
-      const res = await axios.post('http://localhost:3000/admin/owners', formData, {
+      const res = await axios.post('/admin/owners', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

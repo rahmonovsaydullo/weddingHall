@@ -15,7 +15,8 @@ const AdminSidebar = () => {
     { to: '/admin/add-owner', label: 'Add Owner', icon: faUserPlus },
     { to: '/admin/all-venues', label: 'All Venues', icon: faBuilding },
     { to: '/admin/all-owners', label: 'All Owners', icon: faUsers },
-    { to: '/admin/bookings', label: 'All Bookings', icon: faCalendarCheck },
+    { to: '/admin/all-booking', label: 'All Booking', icon: faCalendarCheck },
+    { to: '/admin/approve-venue', label: 'Approve Venue', icon: faCalendarCheck },
   ];
 
   return (
