@@ -12,7 +12,7 @@ import axios from '../../utils/axiosInstance';
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
-  const [status, setStatus] = useState('idle'); // idle | loading | error | success
+  const [status, setStatus] = useState('idle'); 
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();

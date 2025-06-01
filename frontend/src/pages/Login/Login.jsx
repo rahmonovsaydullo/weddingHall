@@ -28,7 +28,7 @@ const Login = () => {
       
       localStorage.setItem("token", token);
       localStorage.setItem("user_id", user.id);
-      localStorage.setItem("role", user.role); // Store role for later usage
+      localStorage.setItem("role", user.role); 
   
       console.log("✅ Logged in user:", user);
   

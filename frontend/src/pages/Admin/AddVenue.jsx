@@ -116,7 +116,7 @@ const AdminCreateVenue = () => {
           >
             <option value="" disabled>Select a district</option>
             {districts.map((district) => (
-              <option key={district} value={district}>{district}</option>
+              <option key={district.id} value={district.id}>{district.name}</option>
             ))}
           </select>
         </div>

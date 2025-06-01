@@ -87,7 +87,7 @@ function Body() {
         >
           <option value="">All Districts</option>
           {districts.map(d => (
-            <option key={d} value={d}>{d}</option>
+            <option key={d.id} value={d.id}>{d.name}</option>
           ))}
         </select>
 
