@@ -1,15 +1,23 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   faPlus,
   faBuilding,
   faUsers,
   faCalendarCheck,
   faUserPlus,
+  faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AdminSidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // remove JWT token
+    navigate('/login'); // redirect to login page
+  };
+
   const links = [
     { to: '/admin/add-venue', label: 'Add Venue', icon: faPlus },
     { to: '/admin/add-owner', label: 'Add Owner', icon: faUserPlus },
@@ -24,6 +32,7 @@ const AdminSidebar = () => {
       <div className="py-6 px-6 text-center font-bold text-3xl text-rose-800 border-b border-rose-300 tracking-wide">
         Admin Panel
       </div>
+
       <nav className="flex flex-col flex-grow mt-6 gap-2 px-3">
         {links.map(({ to, label, icon }) => (
           <NavLink
@@ -39,6 +48,15 @@ const AdminSidebar = () => {
             <span className="text-lg">{label}</span>
           </NavLink>
         ))}
+
+        {/* Logout Button */}
+        <button
+          onClick={handleLogout}
+          className="mt-auto flex items-center gap-3 px-5 py-3 bg-transparent text-rose-800 hover:bg-rose-100 hover:shadow-md rounded-xl transition-all duration-200"
+        >
+          <FontAwesomeIcon icon={faSignOutAlt} className="text-rose-500" />
+          <span className="text-lg">Logout</span>
+        </button>
       </nav>
     </aside>
   );

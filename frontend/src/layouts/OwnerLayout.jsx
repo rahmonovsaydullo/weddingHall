@@ -1,16 +1,16 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import Sidebar from "../components/sidebar/Sidebar";
+import React from 'react';
+import OwnerSidebar from './OwnerSidebar';
+import { Outlet } from 'react-router-dom';
 
-function StudentLayout() {
+const OwnerLayout = () => {
   return (
     <div className="flex">
-      <Sidebar paths={['/','view-all-course','my-course']} panelName={'student'}/>
-      <main className="flex-1 sm:ml-64">
+      <OwnerSidebar />
+      <main className="ml-64 p-6 w-full">
         <Outlet />
       </main>
     </div>
   );
-}
+};
 
-export default StudentLayout;
+export default OwnerLayout;

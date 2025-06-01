@@ -20,22 +20,26 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-  
+
     try {
       const res = await axios.post("/auth/login", formData);
-      
+
       const { token, user } = res.data;
-      
+
       localStorage.setItem("token", token);
       localStorage.setItem("user_id", user.id);
-      localStorage.setItem("role", user.role); 
-  
+      localStorage.setItem("role", user.role);
+
       console.log("✅ Logged in user:", user);
-  
+
       // Redirect based on role
       if (user.role === "admin") {
         navigate("/admin");
-      } else {
+      }
+      else if (user.role === "owner") {
+        navigate("/owner");
+      }
+      else {
         navigate("/");
       }
     } catch (err) {
@@ -45,7 +49,7 @@ const Login = () => {
       setIsLoading(false);
     }
   };
-  
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#eaf4fc] px-4">

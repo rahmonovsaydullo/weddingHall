@@ -15,6 +15,8 @@ const AllBooking = () => {
             headers: { Authorization: `Bearer ${token}` },
             params: { sort: sortKey, order: sortOrder },
           });
+          console.log(res);
+          
           setBookings(res.data.bookings);
           setError('');
         } catch (err) {
@@ -62,7 +64,7 @@ const AllBooking = () => {
           </div>
     
           {/* Booking Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-4 md:grid-cols-2 gap-6">
             {bookings.length > 0 ? (
               bookings.map((b) => (
                 <div key={b.id} className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
@@ -75,7 +77,7 @@ const AllBooking = () => {
                     <strong>Phone:</strong> {b.phone_number}
                   </p>
                   <p><strong>Status:</strong> <span className="capitalize">{b.status}</span></p>
-                  <p><strong>District:</strong> {b.district || 'N/A'}</p>
+                  <p><strong>District:</strong> {b.district_name}</p>
                 </div>
               ))
             ) : (
