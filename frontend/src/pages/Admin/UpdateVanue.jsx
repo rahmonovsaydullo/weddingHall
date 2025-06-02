@@ -63,7 +63,7 @@ const UpdateVenue = () => {
       await axios.put(`/admin/venues/${id}`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      navigate('/admin/venues');
+      navigate('/admin/all-venues');
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to update venue.');
       console.error(err);
@@ -161,7 +161,7 @@ const UpdateVenue = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold p-3 rounded mt-4"
+          className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold p-3 rounded mt-4 cursor-pointer"
         >
           {loading ? 'Updating...' : 'Update Venue'}
         </button>

@@ -9,6 +9,8 @@ import Register from './pages/User/Register';
 import MyBookings from './pages/User/MyBookings';
 import AdminRoutes from './routes/AdminRoutes';
 import OwnerRoutes from './routes/OwnerRoutes';
+import Contact from './pages/Contact/Contact';
+import About from './pages/About/About';
 
 
 
@@ -26,6 +28,9 @@ const App = () => {
           <Route path='/venues/:id' element={<VenueDetail />} />
           <Route path="/venues/:id/book" element={<VenueBooking />} />
           <Route path='/bookings' element={<MyBookings />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/about' element={<About />} />
+
           <Route path="/*" element={<NoPage />} />
         </Routes>
       </Router>

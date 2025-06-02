@@ -26,6 +26,7 @@ function Body() {
         const venues = response.data;
         setData(venues);
         setFilteredData(venues);
+        console.log(response);
         
       } catch (error) {
         console.error("❌ Error fetching data:", error);

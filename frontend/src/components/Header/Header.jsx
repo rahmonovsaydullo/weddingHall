@@ -2,8 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const loggedIn = !!localStorage.getItem('token'); // example check
-
+  const loggedIn = !!localStorage.getItem('token'); 
   const navigate = useNavigate()
   const handleGo = () => {
     navigate('/')
