@@ -15,9 +15,9 @@ const filterVenue = require("../controllers/adminController/filterVenues");
 const getAllOwners = require("../controllers/adminController/viewAllOwners");
 const getAllVenues = require("../controllers/adminController/viewAllVenues");
 const updateVenue = require("../controllers/adminController/updateVenue");
-const getUnapprovedVenues = require("../controllers/adminController/approveVenue");
 const getAllBookings = require("../controllers/adminController/getAllBooking");
 const cancelBooking = require("../controllers/owner/cancelBooking");
+const getUnapprovedVenues = require("../controllers/adminController/getUnapproveVenue");
 
 
 // Protect all admin routes

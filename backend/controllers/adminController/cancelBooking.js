@@ -1,4 +1,3 @@
-// controllers/adminController/cancelBooking.js
 
 const pool = require('../../config/db');
 

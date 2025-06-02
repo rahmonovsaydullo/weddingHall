@@ -16,7 +16,7 @@ const viewVenue = async (req, res) => {
         v.created_at,
         v.updated_at,
         v.owner_id,
-        v.district,
+        v.district_id,
         COALESCE(array_agg(i.image_path) FILTER (WHERE i.image_path IS NOT NULL), '{}') AS images
       FROM venues v
       LEFT JOIN images i ON v.id = i.venue_id

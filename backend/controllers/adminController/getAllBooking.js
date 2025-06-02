@@ -16,24 +16,21 @@ const getAllBookings = async (req, res) => {
     const sortOrder = order.toLowerCase() === 'desc' ? 'DESC' : 'ASC';
 
     const query = `
-      SELECT 
-        b.id,
-        v.name AS venue_name,
-        d.name AS district_name,
-        b.reservation_date,
-        b.guest_amount,
-        b.first_name,
-        b.last_name,
-        b.phone_number,
-        CASE 
-          WHEN b.reservation_date < CURRENT_DATE THEN 'completed' 
-          ELSE 'upcoming' 
-        END AS status
-      FROM booking b
-      JOIN venues v ON b.venue_id = v.id
-      JOIN district d ON v.district_id = d.id
-      ORDER BY ${sortColumn} ${sortOrder}
-    `;
+        SELECT 
+            b.id,
+            v.name AS venue_name,
+            d.name AS district_name,
+            b.reservation_date,
+            b.guest_amount,
+            b.first_name,
+            b.last_name,
+            b.phone_number,
+            b.status
+        FROM booking b
+        JOIN venues v ON b.venue_id = v.id
+        JOIN district d ON v.district_id = d.id
+        ORDER BY ${sortColumn} ${sortOrder}
+`;
 
     const result = await pool.query(query);
 
