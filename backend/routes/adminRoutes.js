@@ -17,6 +17,7 @@ const getAllVenues = require("../controllers/adminController/viewAllVenues");
 const updateVenue = require("../controllers/adminController/updateVenue");
 const getUnapprovedVenues = require("../controllers/adminController/approveVenue");
 const getAllBookings = require("../controllers/adminController/getAllBooking");
+const cancelBooking = require("../controllers/owner/cancelBooking");
 
 
 // Protect all admin routes
@@ -35,6 +36,8 @@ router.get("/venues/:id", viewVenue);
 router.put("/venues/:id", updateVenue);
 router.delete("/venues/:id", deleteVenue);
 router.get("/bookings", getAllBookings);
+router.put("/bookings/:id/cancel", cancelBooking);
+
 
 router.put("/venues/:id/approve", approveVenue);
 router.put("/venues/:id/assign", assignOwner);

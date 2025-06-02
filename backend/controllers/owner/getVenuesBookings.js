@@ -1,29 +1,45 @@
 const pool = require("../../config/db");
 
-const getBookingsByVenue = async (req, res) => {
-  const venueId = req.params.id;
+const getAllBookings = async (req, res) => {
+  const ownerId = req.user.id; // make sure `checkRole` middleware attaches `req.user`
+
+  const { sort = 'b.date', order = 'asc' } = req.query;
+
+  const validSortColumns = {
+    reservation_date: 'b.reservation_date',
+    venue_name: 'v.name',
+    district: 'd.name',
+    status: 'b.status',
+  };
+
+  const sortColumn = validSortColumns[sort] || 'b.date';
+  const sortOrder = order === 'desc' ? 'DESC' : 'ASC';
 
   try {
     const query = `
-      SELECT b.id, b.full_name, b.phone_number, b.guest_count, b.date, b.status, b.created_at
-      FROM bookings b
+      SELECT 
+        b.id,
+        b.reservation_date,
+        b.status,
+        b.guest_amount,
+        b.first_name,
+        b.phone_number,
+        v.name AS venue_name,
+        d.name AS district_name
+      FROM booking b
       INNER JOIN venues v ON b.venue_id = v.id
-      WHERE v.id = $1
-      ORDER BY b.date ASC;
+      INNER JOIN district d ON v.district_id = d.id
+      WHERE v.owner_id = $1
+      ORDER BY ${sortColumn} ${sortOrder}
     `;
 
-    const values = [venueId];
-    const result = await pool.query(query, values);
+    const result = await pool.query(query, [ownerId]);
 
-    res.status(200).json({
-      venue_id: venueId,
-      bookings: result.rows,
-    });
+    res.status(200).json({ bookings: result.rows });
   } catch (error) {
-    console.error("Error fetching bookings by venue:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error fetching bookings:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
-
-module.exports =  getBookingsByVenue
+module.exports = getAllBookings;

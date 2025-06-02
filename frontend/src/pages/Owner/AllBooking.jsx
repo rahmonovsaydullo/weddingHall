@@ -10,7 +10,7 @@ const AllBooking = () => {
 
   const fetchBookings = async (sortKey, sortOrder) => {
     try {
-      const res = await axios.get(`/admin/bookings`, {
+      const res = await axios.get(`/owner/bookings`, {
         headers: { Authorization: `Bearer ${token}` },
         params: { sort: sortKey, order: sortOrder },
       });
@@ -80,8 +80,6 @@ const AllBooking = () => {
         {bookings.length > 0 ? (
           bookings.map((b) => (
             <div key={b.id} className="bg-white rounded-lg shadow-md p-6 border border-gray-200 relative">
-              {console.log(b)
-              }
               <h2 className="text-xl font-semibold mb-2">{b.venue_name}</h2>
               <p><strong>Booking ID:</strong> {b.id}</p>
               <p><strong>Date:</strong> {new Date(b.reservation_date).toLocaleDateString()}</p>

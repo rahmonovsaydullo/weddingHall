@@ -1,12 +1,21 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, PlusCircle, LogOut } from 'lucide-react';
+import {
+  faHome,
+  faPlus,
+  faBuilding,
+  faSignOutAlt,
+  faCalendarCheck,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 const navItems = [
-  { to: '/owner/dashboard', label: 'Dashboard', icon: <Home size={18} /> },
-  { to: '/owner/add-vanue', label: 'Create Venue', icon: <PlusCircle size={18} /> },
-  { to: '/owner/venues', label: 'My Venues', icon: <PlusCircle size={18} /> },
-  { to: '/logout', label: 'Logout', icon: <LogOut size={18} /> },
+  { to: '/owner', label: 'Dashboard', icon: faHome },
+  { to: '/owner/add-vanue', label: 'Create Venue', icon: faPlus },
+  { to: '/owner/own-venues', label: 'My Venues', icon: faBuilding },
+  { to: '/owner/all-booking', label: 'All Booking', icon: faCalendarCheck },
+  { to: '/', label: 'Logout', icon: faSignOutAlt },
 ];
 
 const OwnerSidebar = () => {
@@ -18,13 +27,13 @@ const OwnerSidebar = () => {
           <NavLink
             key={item.to}
             to={item.to}
+            end={item.to === '/owner'}
             className={({ isActive }) =>
-              `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${
-                isActive ? 'bg-pink-600 text-white' : 'text-pink-800 hover:bg-pink-200'
+              `flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition ${isActive ? 'bg-pink-600 text-white' : 'text-pink-800 hover:bg-pink-200'
               }`
             }
           >
-            {item.icon}
+            <FontAwesomeIcon icon={item.icon} className="text-pink-600" />
             {item.label}
           </NavLink>
         ))}

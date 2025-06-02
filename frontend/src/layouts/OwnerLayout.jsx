@@ -1,6 +1,6 @@
 import React from 'react';
-import OwnerSidebar from './OwnerSidebar';
 import { Outlet } from 'react-router-dom';
+import OwnerSidebar from '../components/OwnerSidebar/OwnerSidebar';
 
 const OwnerLayout = () => {
   return (

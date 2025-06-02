@@ -1,11 +1,10 @@
 const pool = require("../../config/db");
 
-
-const updateVenueByOwner = async (req, res) => {
+const updateVenue = async (req, res) => {
   const venueId = req.params.id;
-  const { name, address, seat_price, phone_number, district } = req.body;
+  const { name, address, seat_price, phone_number, district_id } = req.body;
 
-  if (!name || !address || !seat_price || !phone_number || !district) {
+  if (!name || !address || !seat_price || !phone_number || !district_id) {
     return res.status(400).json({ error: "Missing required fields for update" });
   }
 
@@ -16,12 +15,12 @@ const updateVenueByOwner = async (req, res) => {
           address = $2,
           seat_price = $3,
           phone_number = $4,
-          district = $5
+          district_id = $5
       WHERE id = $6
       RETURNING *;
     `;
 
-    const values = [name, address, seat_price, phone_number, district, venueId];
+    const values = [name, address, seat_price, phone_number, district_id, venueId];
     const result = await pool.query(query, values);
 
     if (result.rows.length === 0) {
@@ -38,4 +37,4 @@ const updateVenueByOwner = async (req, res) => {
   }
 };
 
-module.exports = updateVenueByOwner
+module.exports = updateVenue;

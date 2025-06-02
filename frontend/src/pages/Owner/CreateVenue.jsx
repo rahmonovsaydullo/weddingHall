@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from '../../utils/axiosInstance';
+import { districts } from '../../data/districts';
 
 const OwnerCreateVenue = () => {
   const [formData, setFormData] = useState({
@@ -7,15 +8,17 @@ const OwnerCreateVenue = () => {
     address: '',
     seat_price: '',
     phone_number: '',
-    district: '',
+    district_id: '',
+    capacity: '', // ✅ add this
     images: [],
   });
+
 
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
   const token = localStorage.getItem('token');
-  const user_id = localStorage.getItem('user_id'); // Make sure it's saved on login
+  const user_id = localStorage.getItem('user_id');
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -42,12 +45,13 @@ const OwnerCreateVenue = () => {
       data.append('name', formData.name);
       data.append('address', formData.address);
       data.append('seat_price', formData.seat_price);
+      data.append('capacity', formData.capacity); // ✅ add this
       data.append('phone_number', formData.phone_number);
-      data.append('district', formData.district);
-      data.append('user_id', user_id);
+      data.append('owner_id', user_id);
+      data.append('district_id', formData.district_id); // ✅ Fixed key name
 
       formData.images.forEach((image) => {
-        data.append('images', image);
+        data.append('images', image); // ✅ Matches uploadMiddleware
       });
 
       const res = await axios.post('/owner/venues', data, {
@@ -63,7 +67,7 @@ const OwnerCreateVenue = () => {
         address: '',
         seat_price: '',
         phone_number: '',
-        district: '',
+        district_id: '',
         images: [],
       });
     } catch (err) {
@@ -71,6 +75,7 @@ const OwnerCreateVenue = () => {
       setError(err.response?.data?.error || 'Failed to create venue');
     }
   };
+
 
   return (
     <div className="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
@@ -108,6 +113,16 @@ const OwnerCreateVenue = () => {
           required
         />
         <input
+          type="number"
+          name="capacity"
+          value={formData.capacity}
+          onChange={handleChange}
+          placeholder="Capacity"
+          className="w-full px-4 py-2 border rounded"
+          required
+        />
+
+        <input
           type="text"
           name="phone_number"
           value={formData.phone_number}
@@ -116,25 +131,33 @@ const OwnerCreateVenue = () => {
           className="w-full px-4 py-2 border rounded"
           required
         />
-        <input
-          type="text"
-          name="district"
-          value={formData.district}
-          onChange={handleChange}
-          placeholder="District ID"
-          className="w-full px-4 py-2 border rounded"
-          required
-        />
-
         <div>
-          <label className="block mb-1 text-sm font-medium">Upload Images</label>
+          <select
+            name="district_id"
+            value={formData.district_id}
+            onChange={handleChange}
+            required
+            className="w-full border border-gray-600 rounded px-3 py-2"
+          >
+            <option value="" disabled>
+              Select a district
+            </option>
+            {districts.map((district) => (
+              <option key={district.id} value={district.id}>
+                {district.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className='border px-2 py-2 rounded-b-lg rounded-t-lg'>
           <input
             type="file"
             name="images"
             multiple
             accept="image/*"
             onChange={handleChange}
-            className="w-full"
+            className="w-full "
           />
         </div>
 
