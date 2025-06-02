@@ -15,7 +15,7 @@ const navItems = [
   { to: '/owner/add-vanue', label: 'Create Venue', icon: faPlus },
   { to: '/owner/own-venues', label: 'My Venues', icon: faBuilding },
   { to: '/owner/all-booking', label: 'All Booking', icon: faCalendarCheck },
-  { to: '/', label: 'Logout', icon: faSignOutAlt },
+  { to: '/login', label: 'Logout', icon: faSignOutAlt },
 ];
 
 const OwnerSidebar = () => {
