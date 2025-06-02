@@ -10,7 +10,7 @@ const AllBooking = () => {
 
   const fetchBookings = async (sortKey, sortOrder) => {
     try {
-      const res = await axios.get(`/admin/bookings`, {
+      const res = await axios.get('/admin/bookings', {
         headers: { Authorization: `Bearer ${token}` },
         params: { sort: sortKey, order: sortOrder },
       });
@@ -40,7 +40,7 @@ const AllBooking = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // Update UI without reloading all data
+      // Update booking status locally
       setBookings((prev) =>
         prev.map((b) => (b.id === bookingId ? { ...b, status: 'cancelled' } : b))
       );
@@ -53,17 +53,12 @@ const AllBooking = () => {
     const today = new Date();
     const reservationDate = new Date(booking.reservation_date);
 
-    if (booking.status === 'cancelled') {
-      return 'Cancelled';
-    }
-
+    if (booking.status === 'cancelled') return 'Cancelled';
     if (booking.status === 'pending') {
       return reservationDate < today ? 'Done' : 'Upcoming';
     }
-
-    return booking.status; // fallback
+    return booking.status;
   };
-
 
   return (
     <div className="max-w-6xl mx-auto p-6">
@@ -75,28 +70,30 @@ const AllBooking = () => {
         {[
           { label: 'Date', key: 'reservation_date' },
           { label: 'Venue', key: 'venue_name' },
-          { label: 'District', key: 'district' },
+          { label: 'District', key: 'district_name' },
           { label: 'Status', key: 'status' },
         ].map(({ label, key }) => (
           <button
             key={key}
             onClick={() => toggleSort(key)}
-            className={`px-4 py-2 rounded ${sortConfig.key === key
+            className={`px-4 py-2 rounded ${
+              sortConfig.key === key
                 ? 'bg-pink-600 text-white'
                 : 'bg-gray-200 text-gray-800 hover:bg-pink-100'
-              }`}
+            }`}
           >
             {label} {sortConfig.key === key ? (sortConfig.order === 'asc' ? '↑' : '↓') : ''}
           </button>
         ))}
       </div>
 
-      <div className="grid grid-cols-4 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {bookings.length > 0 ? (
           bookings.map((b) => (
-            <div key={b.id} className="bg-white rounded-lg shadow-md p-6 border border-gray-200 relative">
-              {console.log(b)
-              }
+            <div
+              key={b.id}
+              className="bg-white rounded-lg shadow-md p-6 border border-gray-200 relative"
+            >
               <h2 className="text-xl font-semibold mb-2">{b.venue_name}</h2>
               <p><strong>Booking ID:</strong> {b.id}</p>
               <p><strong>Date:</strong> {new Date(b.reservation_date).toLocaleDateString()}</p>
