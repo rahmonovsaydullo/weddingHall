@@ -8,6 +8,7 @@ import AdminDashboard from '../pages/Admin' // this is index.jsx
 import ApproveVenue from '../pages/Admin/ApproveVenue'
 import AllBooking from '../pages/Admin/AllBooking'
 import AllOwners from '../pages/Admin/AllOwners'
+import UpdateVenue from '../pages/Admin/UpdateVanue'
 
 function AdminRoutes() {
   return (
@@ -20,6 +21,7 @@ function AdminRoutes() {
         <Route path="all-owners" element={<AllOwners />} />
         <Route path="approve-venue" element={<ApproveVenue />} />
         <Route path="all-booking" element={<AllBooking />} />
+        <Route path="edit-venue/:id" element={<UpdateVenue />} />
       </Route>
     </Routes>
   )
