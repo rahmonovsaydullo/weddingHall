@@ -49,6 +49,22 @@ const AllBooking = () => {
     }
   };
 
+  const getDisplayStatus = (booking) => {
+    const today = new Date();
+    const reservationDate = new Date(booking.reservation_date);
+
+    if (booking.status === 'cancelled') {
+      return 'Cancelled';
+    }
+
+    if (booking.status === 'pending') {
+      return reservationDate < today ? 'Done' : 'Upcoming';
+    }
+
+    return booking.status; // fallback
+  };
+
+
   return (
     <div className="max-w-6xl mx-auto p-6">
       <h1 className="text-3xl font-bold text-pink-600 mb-6 text-center">All Bookings</h1>
@@ -65,11 +81,10 @@ const AllBooking = () => {
           <button
             key={key}
             onClick={() => toggleSort(key)}
-            className={`px-4 py-2 rounded ${
-              sortConfig.key === key
+            className={`px-4 py-2 rounded ${sortConfig.key === key
                 ? 'bg-pink-600 text-white'
                 : 'bg-gray-200 text-gray-800 hover:bg-pink-100'
-            }`}
+              }`}
           >
             {label} {sortConfig.key === key ? (sortConfig.order === 'asc' ? '↑' : '↓') : ''}
           </button>
@@ -90,7 +105,7 @@ const AllBooking = () => {
                 <strong>Booked By:</strong> {b.first_name} {b.last_name} <br />
                 <strong>Phone:</strong> {b.phone_number}
               </p>
-              <p><strong>Status:</strong> <span className="capitalize">{b.status}</span></p>
+              <p><strong>Status:</strong> <span className="capitalize">{getDisplayStatus(b)}</span></p>
               <p><strong>District:</strong> {b.district_name}</p>
 
               {b.status !== 'cancelled' && (
