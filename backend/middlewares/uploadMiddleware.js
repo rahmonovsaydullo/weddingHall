@@ -1,6 +1,6 @@
 const multer = require("multer")
 
-const allowedTypes = ['image/png', 'image/jpeg', 'image/webp']
+const allowedTypes = ['image/png', 'image/jpeg', 'image/webp', 'image/afiv']
 
 const uploadStorage = multer.diskStorage({
     destination: (req, file, cb) => {
