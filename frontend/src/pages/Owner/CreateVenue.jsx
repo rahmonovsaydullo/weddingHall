@@ -9,7 +9,7 @@ const OwnerCreateVenue = () => {
     seat_price: '',
     phone_number: '',
     district_id: '',
-    capacity: '', // ✅ add this
+    capacity: '', 
     images: [],
   });
 
@@ -45,13 +45,13 @@ const OwnerCreateVenue = () => {
       data.append('name', formData.name);
       data.append('address', formData.address);
       data.append('seat_price', formData.seat_price);
-      data.append('capacity', formData.capacity); // ✅ add this
+      data.append('capacity', formData.capacity); 
       data.append('phone_number', formData.phone_number);
       data.append('owner_id', user_id);
-      data.append('district_id', formData.district_id); // ✅ Fixed key name
+      data.append('district_id', formData.district_id); 
 
       formData.images.forEach((image) => {
-        data.append('images', image); // ✅ Matches uploadMiddleware
+        data.append('images', image); 
       });
 
       const res = await axios.post('/owner/venues', data, {
@@ -68,6 +68,7 @@ const OwnerCreateVenue = () => {
         seat_price: '',
         phone_number: '',
         district_id: '',
+        capacity: '',
         images: [],
       });
     } catch (err) {

@@ -5,7 +5,16 @@ const approveVenue = async (req, res) => {
 
   try {
     // Step 1: Check if venue exists
-    const result = await pool.query('SELECT * FROM venues WHERE id = $1', [id]);
+    const result = await pool.query(
+      `SELECT 
+         v.*, 
+         d.name 
+       FROM venues v
+       LEFT JOIN district d ON v.district_id = d.id
+       WHERE v.id = $1`,
+      [id]
+    );
+    
 
     if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Venue not found' });

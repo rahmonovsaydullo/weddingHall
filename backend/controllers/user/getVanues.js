@@ -23,7 +23,7 @@ const getAllVenues = async (req, res) => {
   ) AS preview_image
 FROM venues v
 LEFT JOIN district d ON v.district_id = d.id
-WHERE v.status IN ('approved', 'pending', 'booked')`;
+WHERE v.status = 'approved'`;
     let params = [];
     let conditions = [];
 

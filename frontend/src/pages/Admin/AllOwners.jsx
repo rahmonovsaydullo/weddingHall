@@ -29,7 +29,7 @@ const AllOwners = () => {
 
   return (
     <div className="px-6 py-10 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-center text-pink-600 mb-8">Admin - All Owners</h1>
+      <h1 className="text-3xl font-bold text-center text-pink-600 mb-8">All Owners</h1>
 
       {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 

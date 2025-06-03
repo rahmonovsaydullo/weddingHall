@@ -27,7 +27,7 @@ function Body() {
         setData(venues);
         setFilteredData(venues);
         console.log(response);
-        
+
       } catch (error) {
         console.error("❌ Error fetching data:", error);
         setError(error);
@@ -89,9 +89,10 @@ function Body() {
         >
           <option value="">All Districts</option>
           {districts.map(d => (
-            <option key={d.id} value={d.id}>{d.name}</option>
+            <option key={d.id} value={d.name}>{d.name}</option>
           ))}
         </select>
+
 
         <select
           className="px-4 py-2 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-300"

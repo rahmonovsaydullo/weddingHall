@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from '../../utils/axiosInstance'; // Your axios setup with baseURL + interceptors
+import axios from '../../utils/axiosInstance'; 
 
 const ApproveVenue = () => {
   const [venues, setVenues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [approvingIds, setApprovingIds] = useState([]); // IDs currently being approved
+  const [approvingIds, setApprovingIds] = useState([]); 
 
   // Fetch unapproved venues
   const fetchUnapprovedVenues = async () => {
@@ -16,6 +16,8 @@ const ApproveVenue = () => {
       const response = await axios.get('/admin/venues/unapproved', {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log(response);
+      
       setVenues(response.data.venues);
     } catch (err) {
       setError('Failed to load venues');
@@ -29,7 +31,7 @@ const ApproveVenue = () => {
     fetchUnapprovedVenues();
   }, []);
 
-  // Approve venue handler
+// Approve venue
   const approveVenue = async (id) => {
     setApprovingIds((prev) => [...prev, id]);
     setError('');
@@ -42,7 +44,6 @@ const ApproveVenue = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // Remove approved venue from the list
       setVenues((prevVenues) => prevVenues.filter((v) => v.id !== id));
     } catch (err) {
       setError('Failed to approve venue. Try again.');
@@ -58,7 +59,7 @@ const ApproveVenue = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-4">
-      <h2 className="text-3xl font-bold mb-6 text-pink-600">Pending Venues Approval</h2>
+      <h2 className="text-3xl font-bold mb-6 text-pink-600">Approve Venues</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {venues.map((venue) => (
           <div key={venue.id} className="border rounded p-4 shadow">

@@ -86,7 +86,7 @@ const AllVenues = () => {
   return (
     <div className="px-6 py-10 bg-gray-50 min-h-screen max-w-7xl mx-auto">
       <h1 className="text-3xl font-bold text-center text-pink-600 mb-8">
-        Admin - All Wedding Venues
+       Wedding Venues
       </h1>
 
       {error && <p className="text-red-600 text-center mb-4">{error}</p>}
