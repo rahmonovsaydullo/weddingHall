@@ -9,6 +9,7 @@ import ApproveVenue from '../pages/Admin/ApproveVenue'
 import AllBooking from '../pages/Admin/AllBooking'
 import AllOwners from '../pages/Admin/AllOwners'
 import UpdateVenue from '../pages/Admin/UpdateVanue'
+import AssignOwner from '../pages/Admin/AssignOwner'
 
 function AdminRoutes() {
   return (
@@ -18,6 +19,7 @@ function AdminRoutes() {
         <Route path="add-venue" element={<AdminCreateVenue />} />
         <Route path="all-venues" element={<AllVenues />} />
         <Route path="add-owner" element={<CreateOwner />} />
+        <Route path="assign-owner" element={<AssignOwner />} />
         <Route path="all-owners" element={<AllOwners />} />
         <Route path="approve-venue" element={<ApproveVenue />} />
         <Route path="all-booking" element={<AllBooking />} />

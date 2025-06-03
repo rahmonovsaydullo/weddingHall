@@ -7,6 +7,7 @@ import {
   faCalendarCheck,
   faUserPlus,
   faSignOutAlt,
+  faAdd,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -23,6 +24,7 @@ const AdminSidebar = () => {
     { to: '/admin/add-owner', label: 'Add Owner', icon: faUserPlus },
     { to: '/admin/all-venues', label: 'All Venues', icon: faBuilding },
     { to: '/admin/all-owners', label: 'All Owners', icon: faUsers },
+    { to: '/admin/assign-owner', label: 'Assign Owner', icon: faAdd },
     { to: '/admin/all-booking', label: 'All Booking', icon: faCalendarCheck },
     { to: '/admin/approve-venue', label: 'Approve Venue', icon: faCalendarCheck },
   ];

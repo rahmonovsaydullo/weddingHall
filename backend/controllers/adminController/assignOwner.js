@@ -1,6 +1,4 @@
-const express = require("express");
-require("dotenv").config();
-const pool = require('../../config/db')
+const pool = require('../../config/db');
 
 // Assign owner to a venue
 const assignOwner = async (req, res) => {
@@ -12,15 +10,19 @@ const assignOwner = async (req, res) => {
   }
 
   try {
-    // Optional: check if user exists and is of role 'owner'
-    const userCheck = await pool.query("SELECT * FROM users WHERE id = $1 AND role = 'owner'", [user_id]);
-    if (userCheck.rows.length === 0) {
-      return res.status(404).json({ error: "Owner user not found or invalid role" });
+// select owners
+    const userCheck = await pool.query(
+      'SELECT * FROM "user" WHERE id = $1 AND role = \'owner\'',
+      [user_id]
+    );
+
+    if (userCheck.rowCount === 0) {
+      return res.status(404).json({ error: "Owner user not found or not an owner" });
     }
 
-    // Update venue with new owner
+// update venue owner
     const result = await pool.query(
-      "UPDATE venues SET user_id = $1 WHERE id = $2 RETURNING *",
+      'UPDATE venues SET owner_id = $1 WHERE id = $2 RETURNING *',
       [user_id, venueId]
     );
 
@@ -38,4 +40,4 @@ const assignOwner = async (req, res) => {
   }
 };
 
-module.exports = assignOwner
+module.exports = assignOwner;
