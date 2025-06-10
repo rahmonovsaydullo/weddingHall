@@ -1,4 +1,3 @@
-// controllers/adminController/createVenues.js
 const pool = require('../../config/db');
 
 const createVenues = async (req, res) => {

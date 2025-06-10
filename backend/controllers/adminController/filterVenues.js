@@ -16,21 +16,21 @@ const filterVenue = async (req, res) => {
     const values = [];
     let count = 1;
 
-    // 🔍 Search by name
+    // Search by name
     if (search) {
-      query += ` AND LOWER(v.name) LIKE LOWER($${count})`;
+      query += `AND LOWER(v.name) LIKE LOWER($${count})`;
       values.push(`%${search}%`);
       count++;
     }
 
-    // ✅ Filter by status
+    // Filter by status
     if (status) {
       query += ` AND v.status = $${count}`;
       values.push(status);
       count++;
     }
 
-    // ✅ Filter by district
+    // Filter by district
     if (district) {
       query += ` AND v.district = $${count}`;
       values.push(district);
@@ -40,7 +40,7 @@ const filterVenue = async (req, res) => {
     // Group by venue
     query += ` GROUP BY v.id`;
 
-    // 🔃 Sort
+    //  Sort
     if (sortBy && ["seat_price", "capacity", "district", "status"].includes(sortBy)) {
       const sortOrder = order.toLowerCase() === "desc" ? "DESC" : "ASC";
       query += ` ORDER BY v.${sortBy} ${sortOrder}`;

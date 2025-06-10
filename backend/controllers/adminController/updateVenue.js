@@ -12,7 +12,6 @@ const updateVenue = async (req, res) => {
     status,
   } = req.body;
 
-  // Validate required fields
   if (!name || !address || !status) {
     return res.status(400).json({ error: 'Missing required fields.' });
   }
@@ -48,7 +47,7 @@ const updateVenue = async (req, res) => {
     }
 
     res.status(200).json({
-      message: 'Venue updated successfully! ✅',
+      message: 'Venue updated successfully',
       updated_venue: result.rows[0],
     });
   } catch (error) {

@@ -5,17 +5,22 @@ const bookVenue = async (req, res) => {
   const {
     guest_amount,
     reservation_date,
-    first_name,
-    last_name,
     phone_number,
     user_id
   } = req.body;
 
-  if (!guest_amount || !reservation_date || !first_name || !last_name || !phone_number) {
-    return res.status(400).json({ error: 'All fields are required' });
+  if (!guest_amount || !reservation_date || !phone_number || !user_id) {
+    return res.status(400).json({ error: 'Missing required fields' });
   }
 
   try {
+    const userResult = await pool.query('SELECT first_name, last_name FROM "user" WHERE id = $1', [user_id]);
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const { first_name, last_name } = userResult.rows[0];
+
     const existing = await pool.query(
       'SELECT * FROM booking WHERE venue_id = $1 AND reservation_date = $2',
       [id, reservation_date]

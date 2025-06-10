@@ -4,7 +4,6 @@ const getVenue = async (req, res) => {
   const { id } = req.params;
 
   try {
-    // Get venue info
     const venueQuery = `SELECT * FROM venues WHERE id = $1 AND status = 'approved'`;
     const venueResult = await pool.query(venueQuery, [id]);
 
@@ -14,7 +13,6 @@ const getVenue = async (req, res) => {
 
     const venue = venueResult.rows[0];
 
-    // Get venue images
     const imageQuery = `SELECT image_path FROM images WHERE venue_id = $1`;
     const imageResult = await pool.query(imageQuery, [id]);
     const images = imageResult.rows;

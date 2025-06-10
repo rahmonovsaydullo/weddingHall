@@ -1,10 +1,10 @@
-const pool = require('../../config/db'); // PostgreSQL connection
+const pool = require('../../config/db'); 
 
 const approveVenue = async (req, res) => {
   const { id } = req.params;
 
   try {
-    // Step 1: Check if venue exists
+    //  Check if venue exists
     const result = await pool.query(
       `SELECT 
          v.*, 
@@ -20,7 +20,7 @@ const approveVenue = async (req, res) => {
       return res.status(404).json({ error: 'Venue not found' });
     }
 
-    // Step 2: Update status to 'approved'
+    //  Update status to 'approved'
     const update = await pool.query(
       `UPDATE venues
        SET status = 'approved',

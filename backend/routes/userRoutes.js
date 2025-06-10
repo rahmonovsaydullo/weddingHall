@@ -13,18 +13,17 @@ const getUserBookings = require("../controllers/user/getOwnBookedVenues");
 const { getBookedDates } = require("../controllers/user/bookedDates");
 
 
-// ✅ Public routes
+// Public routes
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.get("/venues", getAllVenues); // make public
-router.get("/venues/:id", getVenue); // make public
-router.get("/venues/:id/booked-dates", getBookedDates); // make public if needed
+router.get("/venues", getAllVenues); 
+router.get("/venues/:id", getVenue); 
+router.get("/venues/:id/booked-dates", getBookedDates); 
 
-// ✅ Protected routes
+// Protected routes
 router.use(authentication);
 router.use(checkRole(["user"]));
-
-router.post("/venues/:id/book", bookVenue); // only this is protected
+router.post("/venues/:id/book", bookVenue); 
 router.get("/bookings", getUserBookings);
 
 module.exports = router;

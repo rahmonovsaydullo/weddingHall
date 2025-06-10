@@ -7,7 +7,7 @@ const login = async (req, res) => {
   try {
     const { user_name, password } = req.body;
 
-    // Query user by username
+
     const result = await pool.query(
       'SELECT * FROM "user" WHERE user_name = $1',
       [user_name]
@@ -20,7 +20,7 @@ const login = async (req, res) => {
 
     const user = result.rows[0];
 
-    // Clean inputs
+
     const cleanPassword = password.trim();
     const cleanHash = user.password.trim();
 
@@ -43,7 +43,7 @@ const login = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    // Send response
+
     res.status(200).json({
       message: "Login successful",
       token,

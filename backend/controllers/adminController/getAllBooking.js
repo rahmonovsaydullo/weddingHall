@@ -4,7 +4,6 @@ const getAllBookings = async (req, res) => {
   try {
     const { sort = 'reservation_date', order = 'asc' } = req.query;
 
-    // Frontend sends keys like: reservation_date, venue_name, district_name, status
     const sortColumns = {
       reservation_date: 'b.reservation_date',
       venue_name: 'v.name',

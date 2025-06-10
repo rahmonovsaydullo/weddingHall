@@ -1,6 +1,5 @@
 const pool = require("../../config/db"); 
 
-// Get booked dates for a specific venue
 const getBookedDates = async (req, res) => {
   const { id } = req.params;
 

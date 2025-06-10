@@ -1,7 +1,7 @@
 const pool = require("../../config/db");
 
 const getAllBookings = async (req, res) => {
-  const ownerId = req.user.id; // make sure `checkRole` middleware attaches `req.user`
+  const ownerId = req.user.id; 
 
   const { sort = 'b.date', order = 'asc' } = req.query;
 

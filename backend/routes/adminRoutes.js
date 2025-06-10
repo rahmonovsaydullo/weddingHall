@@ -4,7 +4,7 @@ const router = express.Router();
 const uploadMiddleware = require("../middlewares/uploadMiddleware");
 const checkRole = require("../middlewares/checkRole");
 
-// Import controllers
+// controllers
 const approveVenue = require("../controllers/adminController/approveVenue");
 const assignOwner = require("../controllers/adminController/assignOwner");
 const createVenues = require("../controllers/adminController/createVenues");
@@ -13,14 +13,15 @@ const createOwner = require("../controllers/adminController/addOwner");
 const deleteVenue = require("../controllers/adminController/deleteVenues");
 const filterVenue = require("../controllers/adminController/filterVenues");
 const getAllOwners = require("../controllers/adminController/viewAllOwners");
-const getAllVenues = require("../controllers/adminController/viewAllVenues");
 const updateVenue = require("../controllers/adminController/updateVenue");
 const getAllBookings = require("../controllers/adminController/getAllBooking");
-const cancelBooking = require("../controllers/owner/cancelBooking");
+const cancelBooking = require("../controllers/adminController/cancelBooking");
+const getAllVenues = require("../controllers/adminController/viewAllVenues");
 const getUnapprovedVenues = require("../controllers/adminController/getUnapproveVenue");
+const getVenueBookings = require("../controllers/adminController/getVenueBooking");
 
 
-// Protect all admin routes
+// Protect admin routes
 router.use(checkRole(["admin"]));
 
 // Owners
@@ -37,8 +38,7 @@ router.put("/venues/:id", updateVenue);
 router.delete("/venues/:id", deleteVenue);
 router.get("/bookings", getAllBookings);
 router.put("/bookings/:id/cancel", cancelBooking);
-
-
+router.get("/venues/:id/bookings", getVenueBookings);
 router.put("/venues/:id/approve", approveVenue);
 router.put("/venues/:id/assign", assignOwner);
 

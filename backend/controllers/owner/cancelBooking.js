@@ -3,10 +3,9 @@
 const pool = require('../../config/db');
 
 const cancelBooking = async (req, res) => {
-  const { id } = req.params;  // booking id
+  const { id } = req.params; 
 
   try {
-    // Update booking status to 'cancelled'
     const result = await pool.query(
       `UPDATE booking SET status = 'cancelled' WHERE id = $1 RETURNING *`,
       [id]
@@ -17,7 +16,7 @@ const cancelBooking = async (req, res) => {
     }
 
     res.status(200).json({
-      message: "Booking cancelled successfully ✅",
+      message: "Booking cancelled successfully",
       cancelledBooking: result.rows[0],
     });
   } catch (error) {

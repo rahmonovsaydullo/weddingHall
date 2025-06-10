@@ -28,7 +28,7 @@ const updateVenue = async (req, res) => {
     }
 
     res.status(200).json({
-      message: "Venue updated successfully ✅",
+      message: "Venue updated successfully",
       venue: result.rows[0],
     });
   } catch (error) {

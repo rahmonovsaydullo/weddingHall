@@ -1,4 +1,3 @@
-// Example: GET /admin/venues/unapproved
 const pool = require('../../config/db');
 
 const getUnapprovedVenues = async (req, res) => {

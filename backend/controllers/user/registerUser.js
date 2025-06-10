@@ -9,7 +9,6 @@ const registerUser = async (req, res) => {
   }
 
   try {
-    // Use double quotes for reserved word "user"
     const existing = await pool.query(`SELECT * FROM "user" WHERE user_name = $1`, [user_name]);
     if (existing.rows.length > 0) {
       return res.status(409).json({ error: "User already exists" });
