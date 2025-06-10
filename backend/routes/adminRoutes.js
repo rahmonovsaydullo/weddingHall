@@ -31,7 +31,7 @@ router.get("/owners", getAllOwners);
 router.get("/venues", getAllVenues);
 router.post("/venues", uploadMiddleware, createVenues);
 router.get("/venues/filter", filterVenue);
-router.get("/venues/unapproved", getUnapprovedVenues); // <== Add this route
+router.get("/venues/unapproved", getUnapprovedVenues); 
 router.get("/venues/:id", viewVenue);
 router.put("/venues/:id", updateVenue);
 router.delete("/venues/:id", deleteVenue);

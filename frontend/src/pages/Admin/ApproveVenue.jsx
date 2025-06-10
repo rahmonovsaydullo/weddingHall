@@ -71,7 +71,7 @@ const ApproveVenue = () => {
             <p>
               <strong>Owner:</strong> {venue.first_name} {venue.last_name}
             </p>
-            <p><strong>District ID:</strong> {venue.district_id}</p>
+            <p><strong>District:</strong> {venue.district_name}</p>
 
             <button
               onClick={() => approveVenue(venue.id)}
