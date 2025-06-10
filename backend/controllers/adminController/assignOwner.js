@@ -12,6 +12,7 @@ const assignOwner = async (req, res) => {
   try {
 // select owners
     const userCheck = await pool.query(
+
       `SELECT * FROM "user" WHERE id = $1 AND role = 'owner'`,
       [user_id]
     );
