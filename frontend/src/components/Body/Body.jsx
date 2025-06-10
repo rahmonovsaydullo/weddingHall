@@ -68,8 +68,6 @@ function Body() {
   return (
     <div className="mx-auto px-4 py-10 pt-20 bg-gradient-to-br from-pink-50 to-white min-h-screen">
       <h1 className="text-3xl font-bold text-center text-pink-600 mb-10">Explore Wedding Venues</h1>
-
-      {/* Filters */}
       <div className="flex flex-wrap justify-center gap-4 mb-8">
         <div className="relative w-full sm:w-64">
           <FontAwesomeIcon icon={faSearch} className="absolute left-3 top-3 text-gray-400" />
@@ -124,8 +122,6 @@ function Body() {
           />
         </div>
       </div>
-
-      {/* Venue Cards */}
       {error && <p className="text-red-500 mb-4">Error: {error.response?.data?.message || error.message}</p>}
 
       {filteredData.length > 0 ? (

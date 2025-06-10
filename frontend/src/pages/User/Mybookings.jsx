@@ -12,7 +12,7 @@ import axios from '../../utils/axiosInstance';
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
-  const [status, setStatus] = useState('idle'); 
+  const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ const MyBookings = () => {
     if (status === 'success') {
       return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 cursor-pointer">
-          {bookings.map(({ id, reservation_date, guest_amount, venue_name, venue_location, phone_number}) => (
+          {bookings.map(({ id, reservation_date, guest_amount, venue_name, venue_location, phone_number, status }) => (
             <div
               key={id}
               className="backdrop-blur-lg bg-white/70 shadow-xl rounded-2xl overflow-hidden transform transition duration-500 hover:scale-105 hover:shadow-pink-300"
@@ -99,8 +99,9 @@ const MyBookings = () => {
                   <span className="font-medium">Guests:</span> {guest_amount}
                 </p>
 
-                <p className="flex items-center gap-2 text-sm font-semibold mt-2">
-                  Status: Booked
+                <p className={`flex items-center gap-2 text-sm font-semibold mt-2 
+                    ${status === 'cancelled' ? 'text-red-500' : 'text-green-600'}`}>
+                  Status: {status === 'cancelled' ? 'Cancelled' : 'Booked'}
                 </p>
               </div>
             </div>

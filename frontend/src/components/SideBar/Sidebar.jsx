@@ -15,8 +15,8 @@ const AdminSidebar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // remove JWT token
-    navigate('/login'); // redirect to login page
+    localStorage.removeItem('token');
+    navigate('/login'); 
   };
 
   const links = [
@@ -50,8 +50,6 @@ const AdminSidebar = () => {
             <span className="text-lg">{label}</span>
           </NavLink>
         ))}
-
-        {/* Logout Button */}
         <button
           onClick={handleLogout}
           className="mt-auto flex items-center gap-3 px-5 py-3 bg-transparent text-rose-800 hover:bg-rose-100 hover:shadow-md rounded-xl transition-all duration-200"

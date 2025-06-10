@@ -12,12 +12,11 @@ const VenueBooking = () => {
     const [bookedDates, setBookedDates] = useState([]);
 
     const [formData, setFormData] = useState({
-        first_name: "",
-        last_name: "",
         phone_number: "",
         guest_amount: "",
         user_id: localStorage.getItem('user_id')
-    });
+      });
+      
 
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -116,7 +115,7 @@ const VenueBooking = () => {
                 {success && <p className="text-green-600 text-center mb-4">{success}</p>}
 
                 <form onSubmit={handleBooking} className="space-y-5">
-                    <input
+                    {/* <input
                         type="text"
                         name="first_name"
                         placeholder="First Name"
@@ -134,7 +133,7 @@ const VenueBooking = () => {
                         onChange={handleChange}
                         required
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                    />
+                    /> */}
 
                     <input
                         type="tel"
