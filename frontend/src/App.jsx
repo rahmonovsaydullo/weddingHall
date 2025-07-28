@@ -17,7 +17,7 @@ import About from './pages/About/About';
 
 const App = () => {
   return (
-    <div>
+    <div >
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
