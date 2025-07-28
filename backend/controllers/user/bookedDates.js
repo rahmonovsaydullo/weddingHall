@@ -1,4 +1,4 @@
-const pool = require("../../config/db"); 
+import pool from '../../config/db.js';
 
 const getBookedDates = async (req, res) => {
   const { id } = req.params;
@@ -20,6 +20,4 @@ const getBookedDates = async (req, res) => {
   }
 };
 
-module.exports = {
-  getBookedDates,
-};
+export default  getBookedDates

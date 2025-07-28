@@ -1,17 +1,17 @@
-const express = require("express");
+import express from 'express';
+import authentication from '../middlewares/authentication.js';
+import checkRole from '../middlewares/checkRole.js';
+
+
+import getAllVenues from '../controllers/user/getVanues.js';
+import getVenue from '../controllers/user/getVanue.js';
+import bookVenue from '../controllers/user/bookVenue.js';
+import getUserBookings from '../controllers/user/getOwnBookedVenues.js';
+import  getBookedDates  from '../controllers/user/bookedDates.js';
+import loginUser from '../controllers/user/login.js';
+import registerUser from '../controllers/user/registerUser.js';
+
 const router = express.Router();
-
-const authentication = require("../middlewares/authentication");
-const checkRole = require("../middlewares/checkRole");
-
-const { registerUser } = require("../controllers/user/registerUser");
-const { loginUser } = require("../controllers/user/login");
-const getAllVenues = require("../controllers/user/getVanues");
-const getVenue = require("../controllers/user/getVanue");
-const bookVenue = require("../controllers/user/bookVenue");
-const getUserBookings = require("../controllers/user/getOwnBookedVenues");
-const { getBookedDates } = require("../controllers/user/bookedDates");
-
 
 // Public routes
 router.post("/register", registerUser);
@@ -26,4 +26,4 @@ router.use(checkRole(["user"]));
 router.post("/venues/:id/book", bookVenue); 
 router.get("/bookings", getUserBookings);
 
-module.exports = router;
+export default router;

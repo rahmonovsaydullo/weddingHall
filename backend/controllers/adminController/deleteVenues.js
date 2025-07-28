@@ -1,4 +1,5 @@
-const pool = require('../../config/db');
+import pool from '../../config/db.js';
+
 
 const deleteVenue = async (req, res) => {
   const { id } = req.params;
@@ -20,4 +21,4 @@ const deleteVenue = async (req, res) => {
   }
 };
 
-module.exports = deleteVenue;
+export default  deleteVenue;

@@ -1,4 +1,5 @@
-const multer = require("multer")
+
+import multer from 'multer'
 
 const allowedTypes = ['image/png', 'image/jpeg', 'image/webp', 'image/afiv']
 
@@ -27,7 +28,7 @@ const upload = multer({
 
 const uploadMiddleware = upload.array('images', 6)
 
-module.exports = uploadMiddleware
+export default  uploadMiddleware
 
 
 

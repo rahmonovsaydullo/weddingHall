@@ -1,4 +1,4 @@
-const pool = require('../../config/db'); 
+import pool from '../../config/db.js';
 
 const approveVenue = async (req, res) => {
   const { id } = req.params;
@@ -14,7 +14,6 @@ const approveVenue = async (req, res) => {
        WHERE v.id = $1`,
       [id]
     );
-    
 
     if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Venue not found' });
@@ -40,4 +39,4 @@ const approveVenue = async (req, res) => {
   }
 };
 
-module.exports = approveVenue;
+export default approveVenue;

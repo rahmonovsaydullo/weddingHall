@@ -1,8 +1,8 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const pool = require('../../config/db');
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import pool from '../../config/db.js';
 
-exports.loginUser = async (req, res) => {
+const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -41,3 +41,6 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+
+export default loginUser

@@ -1,4 +1,5 @@
-const pool = require('../../config/db');
+import pool from '../../config/db.js';
+
 
 // Assign owner to a venue
 const assignOwner = async (req, res) => {
@@ -40,5 +41,5 @@ const assignOwner = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
-module.exports = assignOwner;
+ 
+export  default  assignOwner;

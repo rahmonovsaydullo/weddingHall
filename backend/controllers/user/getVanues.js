@@ -1,5 +1,4 @@
-// controllers/user/getVenues.js
-const pool = require('../../config/db');
+import pool from '../../config/db.js';
 
 const getAllVenues = async (req, res) => {
   const { price, capacity, district, search } = req.query;
@@ -56,4 +55,4 @@ WHERE v.status = 'approved'`;
   }
 };
 
-module.exports = getAllVenues;
+export default  getAllVenues;

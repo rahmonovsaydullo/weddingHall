@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt');
-const pool = require('../../config/db');
+import pool from '../../config/db.js';
+import bcrypt from 'bcrypt'
 
 const registerUser = async (req, res) => {
   const { first_name, last_name, user_name, password } = req.body;
@@ -30,4 +30,4 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser };
+export default  registerUser ;

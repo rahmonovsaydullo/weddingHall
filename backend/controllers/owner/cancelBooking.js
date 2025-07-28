@@ -1,6 +1,4 @@
-// controllers/adminController/cancelBooking.js
-
-const pool = require('../../config/db');
+import pool from '../../config/db.js';
 
 const cancelBooking = async (req, res) => {
   const { id } = req.params; 
@@ -25,4 +23,4 @@ const cancelBooking = async (req, res) => {
   }
 };
 
-module.exports = cancelBooking;
+export default  cancelBooking;

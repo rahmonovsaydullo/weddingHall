@@ -1,7 +1,8 @@
-const pool = require("../../config/db");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import pool from '../../config/db.js';
+import dotenv from 'dotenv'
+dotenv.config();
 
 const login = async (req, res) => {
   try {
@@ -61,4 +62,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = login;
+export default  login;

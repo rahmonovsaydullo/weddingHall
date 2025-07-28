@@ -1,4 +1,5 @@
-const pool = require("../../config/db");
+import pool from '../../config/db.js';
+
 
 const getVenueBookings = async (req, res) => {
   try {
@@ -17,4 +18,4 @@ const getVenueBookings = async (req, res) => {
   }
 };
 
-module.exports = getVenueBookings;
+export default  getVenueBookings;

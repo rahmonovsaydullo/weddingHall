@@ -1,4 +1,4 @@
-const pool = require("../../config/db");
+import pool from '../../config/db.js';
 
 const createVenueByOwner = async (req, res) => {
   const { name, address, seat_price, capacity, phone_number, owner_id, district_id } = req.body;
@@ -45,4 +45,4 @@ const createVenueByOwner = async (req, res) => {
   }
 };
 
-module.exports = createVenueByOwner;
+export default  createVenueByOwner;

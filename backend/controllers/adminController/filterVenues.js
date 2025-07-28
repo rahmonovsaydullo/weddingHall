@@ -1,4 +1,5 @@
-const pool = require("../../config/db");
+import pool from '../../config/db.js';
+
 
 const filterVenue = async (req, res) => {
   const { sortBy, order = "desc", search, status, district } = req.query;
@@ -54,4 +55,4 @@ const filterVenue = async (req, res) => {
   }
 };
 
-module.exports = filterVenue;
+export default  filterVenue;

@@ -1,4 +1,6 @@
-const pool = require("../../config/db");
+import pool from '../../config/db.js';
+import dotenv from 'dotenv'
+dotenv.config();
 
 const viewVenue = async (req, res) => {
   const { id } = req.params;
@@ -39,4 +41,4 @@ const viewVenue = async (req, res) => {
   }
 };
 
-module.exports = viewVenue;
+export default  viewVenue;

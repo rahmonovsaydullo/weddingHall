@@ -1,4 +1,4 @@
-const pool = require('../../config/db');
+import pool from '../../config/db.js';
 
 const getUserBookings = async (req, res) => {
   const { user_id } = req.query;
@@ -30,4 +30,4 @@ const getUserBookings = async (req, res) => {
   }
 };
 
-module.exports = getUserBookings;
+export default  getUserBookings;

@@ -1,5 +1,6 @@
-const pool = require('../../config/db');
-require('dotenv').config();
+import pool from '../../config/db.js';
+import dotenv from 'dotenv'
+dotenv.config();
 
 const updateVenue = async (req, res) => {
   const { id } = req.params;
@@ -56,4 +57,4 @@ const updateVenue = async (req, res) => {
   }
 };
 
-module.exports = updateVenue;
+export default  updateVenue;

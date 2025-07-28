@@ -1,4 +1,5 @@
-const pool = require('../../config/db');
+import pool from '../../config/db.js';
+
 
 const getUnapprovedVenues = async (req, res) => {
   try {
@@ -30,4 +31,4 @@ const getUnapprovedVenues = async (req, res) => {
   }
 };
 
-module.exports = getUnapprovedVenues;
+export default  getUnapprovedVenues;

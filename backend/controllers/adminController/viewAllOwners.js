@@ -1,5 +1,6 @@
-const pool = require('../../config/db');
-require('dotenv').config();
+import pool from '../../config/db.js';
+import dotenv from 'dotenv' 
+dotenv.config();
 
 const getAllOwners  = async (req, res) => {  
   try {
@@ -20,4 +21,4 @@ const getAllOwners  = async (req, res) => {
   }
 };
 
-module.exports = getAllOwners;
+export default  getAllOwners;

@@ -1,4 +1,4 @@
-const pool = require("../../config/db");
+import pool from '../../config/db.js';
 
 const deleteBooking = async (req, res) => {
   const bookingId = req.params.id;
@@ -28,4 +28,4 @@ const deleteBooking = async (req, res) => {
 };
 
 
-module.exports = deleteBooking
+export default  deleteBooking

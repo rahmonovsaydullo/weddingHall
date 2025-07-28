@@ -1,4 +1,4 @@
-const pool = require("../../config/db");
+import pool from '../../config/db.js';
 
 const getOwnerVenues = async (req, res) => {
   const ownerId = req.user.id; 
@@ -19,4 +19,4 @@ const getOwnerVenues = async (req, res) => {
   }
 };
 
-module.exports = getOwnerVenues;
+export default  getOwnerVenues;

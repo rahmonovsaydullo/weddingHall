@@ -1,5 +1,6 @@
-const pool = require("../../config/db");
-require('dotenv').config();
+import pool from '../../config/db.js';
+import dotenv from 'dotenv'
+dotenv.config();
 
 const getAllVenues = async (req, res) => {
   try {
@@ -73,4 +74,4 @@ const getAllVenues = async (req, res) => {
 };
 
 
-module.exports = getAllVenues;
+export default  getAllVenues;

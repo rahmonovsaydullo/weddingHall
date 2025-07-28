@@ -1,5 +1,6 @@
-const bcrypt = require('bcrypt')
-const pool = require("../../config/db");
+import bcrypt from 'bcrypt'
+import pool from '../../config/db.js';
+
 
 const createOwner = async (req, res) => {
   const { first_name, last_name, user_name, password } = req.body;
@@ -38,4 +39,4 @@ const createOwner = async (req, res) => {
 };
 
 
-module.exports = createOwner
+export default createOwner
