@@ -3,7 +3,6 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-import pool from './config/db.js';
 
 import adminRoutes from './routes/adminRoutes.js';
 import ownerRoutes from './routes/ownerRoutes.js';
